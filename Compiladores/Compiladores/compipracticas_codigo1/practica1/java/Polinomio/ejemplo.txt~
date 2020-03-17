@@ -1,0 +1,280 @@
+public class Test {
+ 
+    public static void main(String[] args) {
+        int[] N = {1, -12, 0, -42};
+        int[] D = {1, -3};
+ 
+        System.out.printf("%s / %s = %s",
+                Arrays.toString(N),
+                Arrays.toString(D),
+                Arrays.deepToString(extendedSyntheticDivision(N, D)));
+    }
+ 
+    static int[][] extendedSyntheticDivision(int[] dividend, int[] divisor) {
+        int[] out = dividend.clone();
+        int normalizer = divisor[0];
+ 
+        for (int i = 0; i < dividend.length - (divisor.length - 1); i++) {
+            out[i] /= normalizer;
+ 
+            int coef = out[i];
+            if (coef != 0) {
+                for (int j = 1; j < divisor.length; j++)
+                    out[i + j] += -divisor[j] * coef;
+            }
+        }
+ 
+        int separator = out.length - (divisor.length - 1);
+ 
+        return new int[][]{
+            Arrays.copyOfRange(out, 0, separator),
+            Arrays.copyOfRange(out, separator, out.length)
+        };
+    }
+}
+
+
+proc p(){
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+while (cta  < $1 ) {
+  acu = acu * equis + uno
+  cta = cta + [1x0]
+}
+print acu
+}
+p ( [ 8x0 ] ) 
+
+//abajo es la buena
+func f(){ 
+  if( $1 < [1x0] ) return [0x0]
+  return [1x0] + f ( ( $1 - [1x0] ) ) * [1x1]
+}
+f ( [ 50x0 ] ) 
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+  return [1x0] + p ( $1 - [1x0]  ) * [1x1]
+}
+
+func p(){
+  if( $1 < [1x0] ) return [0x0]
+  return p ( $1 - [1x0]  ) * [1x1]
+}
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+  return p ( $1 - [1x0]  ) * [1x1]
+}
+
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+  return p ( $1 - [1x0]  ) 
+}
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+}
+p( [10x0 ] )
+
+proc p(){
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+while (cta  < [9x0] ) {
+  acu = acu * equis + uno
+  cta = cta + [1x0]
+  print cta
+}
+print acu
+}
+
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+while ( 0x0  < 9x0 ) {
+
+}
+print acu
+
+while ( 0x0  < 9x0 ) 1x0
+
+
+
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+acu = acu * equis + uno
+cta = cta + [1x0]
+print acu
+
+
+
+cta = [0x0]
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+
+uno = [1x0]
+equis = [1x1]
+acu = [1x0]
+for (cta = [0x0] ; cta  < [9x0] ; cta = cta + [1x0] ) {
+  acu = acu * equis + uno 
+}
+print acu
+uno = [1x0]
+equis = [1x1]
+acu = [1x0]
+for (cta = [0x0] ; cta  < [9x0] ; cta = cta + [1x0] ) {
+  acu = acu * equis + uno 
+  print cta
+  print acu
+}
+
+[33x0+34x3+56x7]+[22x0+44x2+77x10]
+
+1 4 6 4 1
+1 5 10 10 5 1
+1 6 15 20 15 6 1
+1 7 21 35 35 21 7 1
+[1x0] / [1x0]
+[1x1] / [1x1]
+[88x88] / [44x44]
+[1x0+1x1] / [1x0+1x1]
+[1x2-1x0] / [1x1-1x0]
+[1x8-1x0] / [1x1-1x0]
+[1x9-1x0] / [1x1-1x0]
+[1x2-1x0] / [1x1-1x0]
+[1x20-1x0] / [1x1-1x0]
+[1x0+2x1+1x2] / [1x0+1x1]
+[1x3+3x2+3x1+1x0] / [ 1x1+ 1x0 ]
+[1x0+4x1+6x2+4x3+1x4]  / [ 1x1+ 1x0 ]
+[1x0+5x1+10x2+10x3+5x4+1x5 ] / [ 1x1+ 1x0 ]
+[1x0+6x1+15x2+20x3+15x4+6x5+1x6] / [1x0+1x1]
+[1x0+7x1+21x2+35x3+35x4+21x5+7x6+1x7 ] / [ 1x1+ 1x0 ]
+[1x0+8x1+28x2+56x3+70x4+56x5+28x6+8x7+1x8] / [ 1x1+ 1x0 ]
+
+[1x3-12x2-42x0]/[1x1-3x0]
+[-27x0-9x1+1x2]*[1x1-3x0]
+[1x2-9x1-27x0]*[1x1-3x0]+[-123x0]
+[6x5+1x4+4x2-7x1+1x0]%[2x2+1x1-3x0]
+[6x5+1x4+4x2-7x1+1x0]/[2x2+1x1-3x0] residuo [10x1-5x0]
+[3x3-1x2+5x1-2x0]*[2x2+1x1-3x0]+[10x1-5x0]
+[-2x0+5x1-1x2+3x3]*[2x2+1x1-3x0]+[10x1-5x0]
+
+
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] % [1x4+1x2+1x1+1x0]
+[1x3+1x2+1x1]
+
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] / [1x3+1x2+1x1]
+[1x3+1x0]*[1x3+1x2+1x1]+[1x0]
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] % [1x3+1x2+1x1]
+
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] / [1x3+1x2+1x0]
+[1x3+1x1-1x0]*[1x3+1x2+1x0]+[2x2+2x0]
+
+[2x3-5x2+3x1+2x0] / [ 1x2+2x1+1x0]
+[2x3-5x2+3x1+2x0] % [ 1x2+2x1+1x0]
+[ 1x2+2x1+1x0] * [-9x0+2x1]+[11x0+19x1]
+
+[1x2-1x1-2x0] % [ 1x2-4x0]
+[1x2-1x1-2x0] / [1x2-4x0]  
+[1x0]*[1x2-4x0]+[-1x1+2x0]
+[1x2-4x0] %  [1x2-1x1-2x0]  
+[1x2-4x0] /  [1x2-1x1-2x0]  
+[1x0]*[1x2-1x1-2x0]+[1x1-2x0]
+[1x4+1x2+1x1+1x0] / [1x3+1x2+1x1]
+[1x1-1x0] * [1x3+1x2+1x1] + [1x0+2x1+1x2]
+[1x4-5x3+11x2-12x1+6x0] / [1x2-3x1+3x0]
+[1x2-2x1+2x0] * [1x2-3x1+3x0]
+[1x3-27x0] / [1x1-3x0]
+[1x3-27x0] % [1x1-3x0]
+[1x4-9x2+1x1+3x0] / [1x1+3x0]
+[3x4+2x3+2x2-1x1-6x0]/[1x1-1x0]
+[3x4+2x3+2x2-1x1-6x0] % [1x1-1x0]
+[1x4-1x3-5x2-1x1-6x0] / [1x2+1x0]
+[1x2-1x1-6x0] * [1x2+1x0]
+
+[16x4-56x3-88x2+278x1+105x0]%[16x4-64x3-44x2+232x1+70x0]
+[16x4-56x3-88x2+278x1+105x0]/[16x4-64x3-44x2+232x1+70x0]
+mcd ( [16x4-56x3-88x2+278x1+105x0] , [16x4-64x3-44x2+232x1+70x0])
+[7x4+6x3-8x2-6x1+1x0] / [11x4+15x3-2x2-5x1+1x0]
+[7x4+6x3-8x2-6x1+1x0] % [11x4+15x3-2x2-5x1+1x0]
+mcd ([7x4+6x3-8x2-6x1+1x0] , [11x4+15x3-2x2-5x1+1x0] )
+[11x4+15x3-2x2-5x1+1x0] % [7x4+6x3-8x2-6x1+1x0]
+[7x4+6x3-8x2-6x1+1x0] / [1x2 + 2x1 + 1x0]
+residuo [7x2-8x1+1x0]
+[7x2-8x1+1x0] * [1x2 + 2x1 + 1x0]
+[11x4+15x3-2x2-5x1+1x0] / [1x2 + 2x1 + 1x0]
+[11x4+15x3-2x2-5x1+1x0] % [1x2 + 2x1 + 1x0]
+
+[16x4-56x388x2+278x1+105x0]*[16x4−64x3−44x2+232x1+70x0]mal
+
+
+( 1 8 28 56 70 56 28 8 1 ) * ( 1 1 )
+
+
+( 1 8 28 56 70 56 28 8 1 ) % ( 1 1 )
+
+( -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 ) * ( -1 1 )
+
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] / [1x3+1x2+1x1]
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] % [1x3+1x2+1x1]
+
+ [ 1x100 - 1 ] % [ 1x80 - 1x0 ]
+
+( 1 1 1 1 1 1 1 ) / ( 0 1 1 1 )
+
+[ 1 1 1 1 1 1 1 ] / [ 0 1 1 1 ]
+
+( 1 1 1 1 1 1 1 ) % ( 0 1 1 1 )
+( 0 1 1 1 ) * (  1 0 0 1 )
+
+( -20 30 -11 -2 1 ) / ( -2 3 1 )
+( -20 30 -11 -2 1 ) % ( -2 3 1 )
+( -20 30 -11 -2 1 ) & ( -2 3 1 )
+
+( -2 3 1 ) % ( -8 2 )
+
+
+Ingresa el grado del polinomio: 4
+Ingresa el coeficiente de grado 4: 1
+Ingresa el coeficiente de grado 3: -1
+Ingresa el coeficiente de grado 2: 0
+Ingresa el coeficiente de grado 1: -6
+Ingresa el coeficiente de grado 0: 0
+Ingresa el grado del polinomio: 3
+Ingresa el coeficiente de grado 3: 1
+Ingresa el coeficiente de grado 2: 1
+Ingresa el coeficiente de grado 1: -12
+Ingresa el coeficiente de grado 0: 0
+expo=3 res expo=4 coefi=0 Modulo11
+
+
+( 0 -6 0 -1 1 ) / ( 0 -12 1 1 )
+( 0 -6 0 -1 1 ) % ( 0 -12 1 1 )
+( 0 -6 0 -1 1 ) & ( 0 -12 1 1 )
+( -1 0 0 0 0 0 0 0 0 0 1 ) / ( -1 0 0 0 0 0 0 0 1 )
+     1 2 3 4 5 6 7 8 9            1 2 3 4 5 6 7
+
+( -1 0 0 0 0 0 0 0 0 0 1 ) % ( -1 0 0 0 0 0 0 0 1 )
+
+( -1 0 0 0 0 0 0 0 0 0 1 ) & ( -1 0 0 0 0 0 0 0 1 )
+
+( 1 1 ) * ( 1 1 ) * ( 1 1 ) * ( 1 1 ) * ( 1 1 ) * ( 1 1 ) * ( 1 1 ) * ( 1 1 )
+
+
+
+
+

@@ -1,0 +1,13 @@
+Gram=y.tab.c y.tab.h
+
+all: $(Gram) y.tab.c
+	@gcc -o regu y.tab.c conjunto_cal.c cola.c regular.c arbol.c
+	@echo Compiled
+
+
+$(Gram): simple.y
+	@yacc -d simple.y
+
+clean:
+	@rm -f *.out *.tab.* regu
+	@echo Clean

@@ -1,0 +1,10 @@
+Gram=y.tab.c y.tab.h
+
+all: $(Gram) code.c  init.c  symbol.c 
+	@gcc -o hoc y.tab.c code.c  init.c  symbol.c  
+	@echo Compiled
+$(Gram): hoc.y
+	@yacc -d hoc.y
+clean:
+	@rm -f *.out *.tab.* hoc
+	@echo Clean

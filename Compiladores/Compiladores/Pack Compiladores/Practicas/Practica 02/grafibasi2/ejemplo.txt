@@ -1,0 +1,21 @@
+
+
+color 0 ; circulo 100 ;
+color 1 ; line 100 ;
+color 2 ; rectangulo ;
+ima 100 100 ;
+
+fil 0 -1 0 -1 4 -1 0 -1 0 ; //edge
+fil 0 -1 0 -1 5 -1 0 -1 0 ; //Sharpen
+fil 0 -1 0 -1 8 -1 0 -1 0 ; //
+fil -2 -1 0 -1 1 1 0 1 2 ; //Repujado
+fil 0.111111111 0.111111111 0.111111111 0.111111111 0.111111111 0.111111111 0.111111111 0.111111111 0.111111111 ;
+
+color 2 ; circulo 40 50 200 ; circulo 40 150 200 ;
+color 1 ; rectangulo 10 180 220 40 ; rectangulo 50 140 140 40 ;
+color 2 ; rectangulo 300 140 240 100 ;
+color 1 ; rectangulo 400 190 40 50 ;
+color 0 ; line 300 140 250 140 ;
+color 0 ; line 540 140 590 140 ;
+color 0 ; line 420 50 250 140 ;
+color 0 ; line 420 50 590 140 ;

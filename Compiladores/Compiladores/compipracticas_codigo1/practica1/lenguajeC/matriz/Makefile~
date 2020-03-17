@@ -1,0 +1,18 @@
+Gram=y.tab.c y.tab.h
+
+all: $(Gram) lex.yy.c matriz_cal.c
+	@gcc -o matr y.tab.c lex.yy.c matriz_cal.c
+	@echo Compiled
+
+matriz_cal.c:
+	@echo "Si esta"
+
+$(Gram): matriz_cal.y
+	@yacc -d matriz_cal.y
+
+lex.yy.c: matriz_cal.l
+	@flex matriz_cal.l
+
+clean:
+	@rm -f *.out lex.yy.c *.tab.* matr
+	@echo Clean

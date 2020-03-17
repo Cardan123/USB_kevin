@@ -1,0 +1,86 @@
+import java.awt.*;
+import javax.swing.*;
+class CoreDoc extends JPanel {
+   public CMARS MARS;   
+   public RA Assembler;
+
+   public boolean RedWarriorLoaded;
+   public boolean BlueWarriorLoaded;
+    
+   public int RedWarriorLoadAddress;
+   public int BlueWarriorLoadAddress;
+   public static final int RED = 0, BLUE= 1; 
+   public CMARS getMARS(){
+      return MARS;
+   }
+   public CoreDoc(){
+      System.out.println("CoreDoc");
+      BlueWarriorLoaded = false;
+      RedWarriorLoaded = false;
+      MARS = new CMARS();  
+      Assembler = new RA();
+   }
+   public void Run(/*CDC *pDC*/){
+      System.out.println("RunCCCCore________");
+      MARS.Cycle(/*pDC*/);   
+   }
+   public void SetUpWorld(/*LPRECT rect*/){                        
+      MARS.SetUp(/*rect*/);
+   }
+   public void Reset(){                    
+       RedWarriorLoaded = BlueWarriorLoaded = false;    
+       MARS.Reset();
+   }
+   public void OnCorewarGo(){ 
+      if(RedWarriorLoaded && BlueWarriorLoaded){
+        System.out.println("OnCorewarGo");
+        MARS.Reset(RedWarriorLoadAddress, BlueWarriorLoadAddress);
+        // else if it's just paused
+        MARS.Run();
+      } else {
+        //CDialog Bitch(IDD_DIALOG1);
+        //Bitch.DoModal();
+      }                     
+   }
+   boolean GetAHit(HitInfo Hitstruct){               
+    // Get a pointer to core
+    //========MARS = new CMARS();
+    Core pCore = MARS.GetCore();                           
+    // If there's a hit to be got  
+    System.out.println("pcore ="+pCore+"Hi =" + Hitstruct);                          
+    if( (Hitstruct.HitLocation = pCore.GetAHit()) == -1){
+        System.out.println("falso Hi =" + Hitstruct.HitLocation); 
+        return false;             
+    }                  
+    // See what team / color is running                                 
+    /*Teams*/int CurrentTeam = MARS.GetCurrentTeam();
+                                     
+    // Set the color                                       
+    Hitstruct.rgb = new Color(255-(255*CurrentTeam), 0, CurrentTeam*255);
+    return true;
+   }
+   public void OnFileOpenBlue(String selectedFile){
+      if(BlueWarriorLoaded)
+         return;
+      MARS.SetCurrentTeam(BLUE);
+      //BlueWarriorLoadAddress  = (Core.CoreSize/4)*3 +
+      //(int)(Math.random()%(Core.CoreSize/4));
+      BlueWarriorLoadAddress = 0;
+      if(Assembler.Asm(selectedFile, MARS.GetCore(), BlueWarriorLoadAddress))
+         BlueWarriorLoaded = true;
+   }
+   public void OnFileOpenRed(String selectedFile){
+      if(RedWarriorLoaded)
+         return;
+      MARS.SetCurrentTeam(RED);  
+      //RedWarriorLoadAddress  = (Core.CoreSize/4)*3 +
+      //                          (int)(Math.random()*(Core.CoreSize/4));
+      //RedWarriorLoadAddress = 0;
+     RedWarriorLoadAddress  = (Core.CoreSize/4)*3;
+     if(Assembler.Asm(selectedFile, MARS.GetCore(), RedWarriorLoadAddress))
+        RedWarriorLoaded = true;
+   }
+   public static void main(String s[]){
+      CoreDoc ra=new CoreDoc();
+   }
+}

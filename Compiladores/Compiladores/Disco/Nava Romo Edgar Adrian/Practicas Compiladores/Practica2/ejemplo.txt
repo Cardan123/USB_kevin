@@ -1,0 +1,6 @@
+color 0 ;
+rectangulo 200 200 200 200 ;
+color 1 ;
+circulo 200 200 200 ;
+color 1 ;
+line 100 300 500 300 ;

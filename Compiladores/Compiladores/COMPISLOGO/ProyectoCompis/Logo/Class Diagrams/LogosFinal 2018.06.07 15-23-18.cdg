@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="LogosFinal">
+  <ClassDiagramComponents>
+    <Class name="Code" package="" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="contadorDePrograma" type="int" visibility="private"/>
+        <Field name="memoria" type="ArrayList" visibility="private" isFinal="true"/>
+        <Field name="pila" type="Stack" visibility="private" isFinal="true"/>
+        <Field name="tabla" type="Symbol" visibility="private" isFinal="true"/>
+        <Field name="stop" type="boolean" visibility="private"/>
+        <Field name="returning" type="boolean" visibility="private"/>
+        <Field name="pilaDeMarcos" type="Stack&lt;Marco&gt;" visibility="private" isFinal="true"/>
+        <Field name="currentState" type="CurrentState" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Symbol" name="tabla"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="numeroDeElementos" returnType="int" visibility="public"/>
+        <Method name="agregarOperacion" returnType="int" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="agregar" returnType="int" visibility="public">
+          <Argument type="Object" name="objeto"/>
+        </Method>
+        <Method name="agregar" returnType="void" visibility="public">
+          <Argument type="Object" name="objeto"/>
+          <Argument type="int" name="posicion"/>
+        </Method>
+        <Method name="agregarOperacionEn" returnType="int" visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="posicion"/>
+        </Method>
+        <Method name="SUM" returnType="void" visibility="private"/>
+        <Method name="RES" returnType="void" visibility="private"/>
+        <Method name="MUL" returnType="void" visibility="private"/>
+        <Method name="negativo" returnType="void" visibility="private"/>
+        <Method name="constPush" returnType="void" visibility="private"/>
+        <Method name="varPush" returnType="void" visibility="private"/>
+        <Method name="varPush_Eval" returnType="void" visibility="private"/>
+        <Method name="asignar" returnType="void" visibility="private"/>
+        <Method name="EQ" returnType="void" visibility="private"/>
+        <Method name="NE" returnType="void" visibility="private"/>
+        <Method name="LE" returnType="void" visibility="private"/>
+        <Method name="GR" returnType="void" visibility="private"/>
+        <Method name="LQ" returnType="void" visibility="private"/>
+        <Method name="GE" returnType="void" visibility="private"/>
+        <Method name="NOT" returnType="void" visibility="private"/>
+        <Method name="AND" returnType="void" visibility="private"/>
+        <Method name="OR" returnType="void" visibility="private"/>
+        <Method name="stop" returnType="void" visibility="private"/>
+        <Method name="_return" returnType="void" visibility="private"/>
+        <Method name="nop" returnType="void" visibility="private"/>
+        <Method name="WHILE" returnType="void" visibility="private"/>
+        <Method name="IF_ELSE" returnType="void" visibility="private"/>
+        <Method name="FOR" returnType="void" visibility="private"/>
+        <Method name="declaracion" returnType="void" visibility="private"/>
+        <Method name="invocar" returnType="void" visibility="private"/>
+        <Method name="push_parametro" returnType="void" visibility="private"/>
+        <Method name="imprimirMemoria" returnType="void" visibility="public"/>
+        <Method name="ejecutar" returnType="void" visibility="public"/>
+        <Method name="ejecutarSiguiente" returnType="boolean" visibility="public"/>
+        <Method name="ejecutar" returnType="void" visibility="public">
+          <Argument type="int" name="indice"/>
+        </Method>
+        <Method name="ejecutarFuncion" returnType="void" visibility="public">
+          <Argument type="int" name="indice"/>
+        </Method>
+        <Method name="ejecutarInstruccion" returnType="void" visibility="public">
+          <Argument type="int" name="indice"/>
+        </Method>
+        <Method name="getCurrentState" returnType="CurrentState" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CurrentState" package="" visibility="public" xPosition="512.0" yPosition="20.0">
+      <Fields>
+        <Field name="lineas" type="ArrayList&lt;Linea&gt;" visibility="package"/>
+        <Field name="x" type="double" visibility="package"/>
+        <Field name="y" type="double" visibility="package"/>
+        <Field name="angulo" type="int" visibility="package"/>
+        <Field name="color" type="Color" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="agregarLinea" returnType="void" visibility="public">
+          <Argument type="Linea" name="linea"/>
+        </Method>
+        <Method name="setPosicion" returnType="void" visibility="public">
+          <Argument type="double" name="x"/>
+          <Argument type="double" name="y"/>
+        </Method>
+        <Method name="limpiar" returnType="void" visibility="public"/>
+        <Method name="getLineas" returnType="ArrayList&lt;Linea&gt;" visibility="public"/>
+        <Method name="getX" returnType="double" visibility="public"/>
+        <Method name="getY" returnType="double" visibility="public"/>
+        <Method name="getAngulo" returnType="int" visibility="public"/>
+        <Method name="setAngulo" returnType="void" visibility="public">
+          <Argument type="int" name="angulo"/>
+        </Method>
+        <Method name="getColor" returnType="Color" visibility="public"/>
+        <Method name="setColor" returnType="void" visibility="public">
+          <Argument type="Color" name="color"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GUI" package="" visibility="public" xPosition="1435.0" yPosition="317.0">
+      <Fields>
+        <Field name="parser" type="Parser" visibility="package"/>
+        <Field name="codeArea" type="JTextArea" visibility="package"/>
+        <Field name="codeScroll" type="JScrollPane" visibility="package"/>
+        <Field name="drawArea" type="JPanelDibujo" visibility="package"/>
+        <Field name="trazar" type="JButton" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="JPanelDibujo" package="" visibility="public" xPosition="1235.0" yPosition="82.0">
+      <Fields>
+        <Field name="currentState" type="CurrentState" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="setCurrentState" returnType="void" visibility="public">
+          <Argument type="CurrentState" name="currentState"/>
+        </Method>
+        <Method name="paint" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Linea" package="" visibility="public" xPosition="1030.0" yPosition="345.0">
+      <Fields>
+        <Field name="x0" type="int" visibility="package"/>
+        <Field name="y0" type="int" visibility="package"/>
+        <Field name="x1" type="int" visibility="package"/>
+        <Field name="y1" type="int" visibility="package"/>
+        <Field name="color" type="Color" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x0"/>
+          <Argument type="int" name="y0"/>
+          <Argument type="int" name="x1"/>
+          <Argument type="int" name="y1"/>
+          <Argument type="Color" name="color"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getX0" returnType="int" visibility="public"/>
+        <Method name="setX0" returnType="void" visibility="public">
+          <Argument type="int" name="x0"/>
+        </Method>
+        <Method name="getY0" returnType="int" visibility="public"/>
+        <Method name="setY0" returnType="void" visibility="public">
+          <Argument type="int" name="y0"/>
+        </Method>
+        <Method name="getX1" returnType="int" visibility="public"/>
+        <Method name="setX1" returnType="void" visibility="public">
+          <Argument type="int" name="x1"/>
+        </Method>
+        <Method name="getY1" returnType="int" visibility="public"/>
+        <Method name="setY1" returnType="void" visibility="public">
+          <Argument type="int" name="y1"/>
+        </Method>
+        <Method name="getColor" returnType="Color" visibility="public"/>
+        <Method name="setColor" returnType="void" visibility="public">
+          <Argument type="Color" name="color"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Main" package="" visibility="public" xPosition="1344.0" yPosition="802.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Marco" package="" visibility="public" xPosition="547.0" yPosition="447.0">
+      <Fields>
+        <Field name="parametros" type="ArrayList" visibility="private"/>
+        <Field name="retorno" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="agregarParametro" returnType="void" visibility="public">
+          <Argument type="Object" name="parametro"/>
+        </Method>
+        <Method name="getParametro" returnType="Object" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+        <Method name="setParametros" returnType="void" visibility="public">
+          <Argument type="ArrayList" name="parametros"/>
+        </Method>
+        <Method name="getRetorno" returnType="int" visibility="public"/>
+        <Method name="setRetorno" returnType="void" visibility="public">
+          <Argument type="int" name="retorno"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Symbol" package="" visibility="public" xPosition="397.0" yPosition="810.0">
+      <Fields>
+        <Field name="simbolos" type="ArrayList&lt;SymbolData&gt;" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="lookup" returnType="Object" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="insert" returnType="boolean" visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="Object" name="objeto"/>
+        </Method>
+        <Method name="print" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="SymbolData" package="" visibility="public" xPosition="875.0" yPosition="810.0">
+      <Fields>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="objeto" type="Object" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="Object" name="objeto"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getObjeto" returnType="Object" visibility="public"/>
+        <Method name="setObjeto" returnType="void" visibility="public">
+          <Argument type="Object" name="objeto"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="Funcion" package="" visibility="public" xPosition="891.0" yPosition="218.0">
+      <Methods>
+        <Method name="ejecutar" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Object" name="A"/>
+          <Argument type="ArrayList" name="parametros"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="simbolos" source="Symbol" target="SymbolData" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;SymbolData&gt;"/>
+    <HasRelation name="tabla" source="Code" target="Symbol" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="lineas" source="CurrentState" target="Linea" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Linea&gt;"/>
+    <UseRelation source="JPanelDibujo" target="CurrentState" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="currentState" source="JPanelDibujo" target="CurrentState" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="pilaDeMarcos" source="Code" target="Marco" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="drawArea" source="GUI" target="JPanelDibujo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="CurrentState" target="Linea" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Code" target="CurrentState" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="currentState" source="Code" target="CurrentState" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

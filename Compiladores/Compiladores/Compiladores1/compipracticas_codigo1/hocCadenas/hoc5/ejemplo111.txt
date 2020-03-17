@@ -1,0 +1,225 @@
+proc pp(){
+uno = [1x0]
+equis = [1x1]
+cta = $1
+acu = [1x0]
+while (cta  >= [0x0] ) {
+  acu = acu * equis + uno
+  cta = cta - [1x0]
+  if( cta >= [5x0] && cta <=[8x0] ) print cta
+}
+print acu
+}
+pp ( [ 10x0 ] ) 
+
+proc pp(){
+uno = [1x0]
+equis = [1x1]
+cta = $1
+}
+
+proc p(){
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+while (cta  < $1 ) {
+  acu = acu * equis + uno
+  cta = cta + [1x0]
+}
+print acu
+}
+p ( [ 8x0 ] ) 
+
+//abajo es la buena
+func f(){ 
+  if( $1 < [1x0] ) return [0x0]
+  return [1x0] + f ( ( $1 - [1x0] ) ) * [1x1]
+}
+f ( [ 50x0 ] ) 
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+  return [1x0] + p ( $1 - [1x0]  ) * [1x1]
+}
+
+func p(){
+  if( $1 < [1x0] ) return [0x0]
+  return p ( $1 - [1x0]  ) * [1x1]
+}
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+  return p ( $1 - [1x0]  ) * [1x1]
+}
+
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+  return p ( $1 - [1x0]  ) 
+}
+proc p(){
+  if( $1 < [1x0] ) return [0x0]
+}
+p( [10x0 ] )
+
+proc p(){
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+while (cta  < [9x0] ) {
+  acu = acu * equis + uno
+  cta = cta + [1x0]
+  print cta
+}
+print acu
+}
+
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+while ( 0x0  < 9x0 ) {
+
+}
+print acu
+
+while ( 0x0  < 9x0 ) 1x0
+
+
+
+uno = [1x0]
+equis = [1x1]
+cta = [0x0]
+acu = [1x0]
+acu = acu * equis + uno
+cta = cta + [1x0]
+print acu
+
+
+
+cta = [0x0]
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+cta = cta + [1x0]
+print cta
+
+uno = [1x0]
+equis = [1x1]
+acu = [1x0]
+for (cta = [0x0] ; cta  < [9x0] ; cta = cta + [1x0] ) {
+  acu = acu * equis + uno 
+}
+print acu
+uno = [1x0]
+equis = [1x1]
+acu = [1x0]
+for (cta = [0x0] ; cta  < [9x0] ; cta = cta + [1x0] ) {
+  acu = acu * equis + uno 
+  print cta
+  print acu
+}
+
+[33x0+34x3+56x7]+[22x0+44x2+77x10]
+
+1 4 6 4 1
+1 5 10 10 5 1
+1 6 15 20 15 6 1
+1 7 21 35 35 21 7 1
+1 8 28 56 70 56 28 8 1
+
+[1x0] / [1x0]
+[1x1] / [1x1]
+[88x88] / [44x44]
+[1x0+1x1] / [1x0+1x1]
+[1x2-1x0] / [1x1-1x0]
+[1x8-1x0] / [1x1-1x0]
+[1x9-1x0] / [1x1-1x0]
+[1x2-1x0] / [1x1-1x0]
+[1x20-1x0] / [1x1-1x0]
+[1x0+2x1+1x2] / [1x0+1x1]
+[1x3+3x2+3x1+1x0] / [ 1x1+ 1x0 ]
+[1x0+4x1+6x2+4x3+1x4]  / [ 1x1+ 1x0 ]
+[1x0+5x1+10x2+10x3+5x4+1x5 ] / [ 1x1+ 1x0 ]
+[1x0+6x1+15x2+20x3+15x4+6x5+1x6] / [1x0+1x1]
+[1x0+7x1+21x2+35x3+35x4+21x5+7x6+1x7 ] / [ 1x1+ 1x0 ]
+[1x0+8x1+28x2+56x3+70x4+56x5+28x6+8x7+1x8] / [ 1x1+ 1x0 ]
+
+[1x3-12x2-42x0]/[1x1-3x0]
+[-27x0-9x1+1x2]*[1x1-3x0]
+[1x2-9x1-27x0]*[1x1-3x0]+[-123x0]
+[6x5+1x4+4x2-7x1+1x0]%[2x2+1x1-3x0]
+[6x5+1x4+4x2-7x1+1x0]/[2x2+1x1-3x0] residuo [10x1-5x0]
+[3x3-1x2+5x1-2x0]*[2x2+1x1-3x0]+[10x1-5x0]
+[-2x0+5x1-1x2+3x3]*[2x2+1x1-3x0]+[10x1-5x0]
+
+
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] % [1x4+1x2+1x1+1x0]
+[1x3+1x2+1x1]
+
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] / [1x3+1x2+1x1]
+[1x3+1x0]*[1x3+1x2+1x1]+[1x0]
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] % [1x3+1x2+1x1]
+
+[1x6+1x5+1x4+1x3+1x2+1x1+1x0] / [1x3+1x2+1x0]
+[1x3+1x1-1x0]*[1x3+1x2+1x0]+[2x2+2x0]
+
+[2x3-5x2+3x1+2x0] / [ 1x2+2x1+1x0]
+[2x3-5x2+3x1+2x0] % [ 1x2+2x1+1x0]
+[ 1x2+2x1+1x0] * [-9x0+2x1]+[11x0+19x1]
+
+[1x2-1x1-2x0] % [ 1x2-4x0]
+[1x2-1x1-2x0] / [1x2-4x0]  
+[1x0]*[1x2-4x0]+[-1x1+2x0]
+[1x2-4x0] %  [1x2-1x1-2x0]  
+[1x2-4x0] /  [1x2-1x1-2x0]  
+[1x0]*[1x2-1x1-2x0]+[1x1-2x0]
+[1x4+1x2+1x1+1x0] / [1x3+1x2+1x1]
+[1x1-1x0] * [1x3+1x2+1x1] + [1x0+2x1+1x2]
+[1x4-5x3+11x2-12x1+6x0] / [1x2-3x1+3x0]
+[1x2-2x1+2x0] * [1x2-3x1+3x0]
+[1x3-27x0] / [1x1-3x0]
+[1x3-27x0] % [1x1-3x0]
+[1x4-9x2+1x1+3x0] / [1x1+3x0]
+[3x4+2x3+2x2-1x1-6x0]/[1x1-1x0]
+[3x4+2x3+2x2-1x1-6x0] % [1x1-1x0]
+[1x4-1x3-5x2-1x1-6x0] / [1x2+1x0]
+[1x2-1x1-6x0] * [1x2+1x0]
+
+[16x4-56x3-88x2+278x1+105x0]%[16x4-64x3-44x2+232x1+70x0]
+[16x4-56x3-88x2+278x1+105x0]/[16x4-64x3-44x2+232x1+70x0]
+mcd ( [16x4-56x3-88x2+278x1+105x0] , [16x4-64x3-44x2+232x1+70x0])
+[7x4+6x3-8x2-6x1+1x0] / [11x4+15x3-2x2-5x1+1x0]
+[7x4+6x3-8x2-6x1+1x0] % [11x4+15x3-2x2-5x1+1x0]
+mcd ([7x4+6x3-8x2-6x1+1x0] , [11x4+15x3-2x2-5x1+1x0] )
+[11x4+15x3-2x2-5x1+1x0] % [7x4+6x3-8x2-6x1+1x0]
+[7x4+6x3-8x2-6x1+1x0] / [1x2 + 2x1 + 1x0]
+residuo [7x2-8x1+1x0]
+[7x2-8x1+1x0] * [1x2 + 2x1 + 1x0]
+[11x4+15x3-2x2-5x1+1x0] / [1x2 + 2x1 + 1x0]
+[11x4+15x3-2x2-5x1+1x0] % [1x2 + 2x1 + 1x0]
+
+[16x4-56x388x2+278x1+105x0]*[16x4−64x3−44x2+232x1+70x0]mal
+
+
+dim a[[1x5]]
+a[[0x0]]=[33x0+44x2+55x3+66x4+77x5+88x6+99x7+100x8]
+a[[0x1]]=[33x0+44x2+55x3+66x4+77x5+88x6+99x7+100x8]
+a[[0x2]]=[33x0+44x2+55x3+66x4+77x5+88x6+99x7+100x8]
+a[[0x3]]=[66x0+88x2+550x3+660x4+770x5+880x6+990x7+1000x8]
+a[[0x4]]=[33x0+44x2+55x3+66x4+77x5+88x6+99x7+100x8]
+a[[0x3]]
+
+
+
+
+
+
+
+

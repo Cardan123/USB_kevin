@@ -1,0 +1,7 @@
+[1 1 1] + [1 1 1]
+[1 1 1] - [1 1 1]
+[1 1 1] . [1 1 1]
+[1 1 1] x [1 1 1]
+|[1 1 1]|
+
+para compilar con yacc es yacc -d archivo.y

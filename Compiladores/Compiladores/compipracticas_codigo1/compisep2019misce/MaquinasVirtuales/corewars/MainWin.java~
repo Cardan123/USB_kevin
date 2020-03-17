@@ -1,0 +1,120 @@
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.text.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+import javax.swing.filechooser.*;
+public class MainWin extends JFrame implements Runnable, ActionListener {
+   int TimerID = 43;
+   int TimeOutDelay = 30;
+   private MenuBar menubar;
+   private Menu file;
+   private MenuItem openBlueMenuItem;
+   private MenuItem openRedMenuItem;
+   private MenuItem goMenuItem;
+   CoreDoc pDoc;
+   Thread hilo;
+   public MainWin(){
+      super("CoreWars");
+      pDoc = new CoreDoc();
+      GetDocument().SetUpWorld(/*&r*/);
+      menubar = new MenuBar();
+      file = new Menu("File");
+      openBlueMenuItem = new MenuItem("Open Blue");
+      openBlueMenuItem.addActionListener(this);
+      file.add(openBlueMenuItem);
+      
+      openRedMenuItem = new MenuItem("Open Red");
+      openRedMenuItem.addActionListener(this);
+      file.add(openRedMenuItem);
+
+      goMenuItem = new MenuItem("Go");
+      goMenuItem.addActionListener(this);
+      file.add(goMenuItem);
+      menubar.add(file);
+      //file.add("Quit");
+      this.setMenuBar(menubar);
+      setSize(1225,800);//Se establece las magnitudes del JFrame.
+      setVisible(true);
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
+      hilo = new Thread(this);
+      hilo.start();
+   }
+   public CoreDoc GetDocument() {
+      return pDoc;
+   }
+   public void run(){
+      Graphics g=getGraphics();
+      Core pCore = pDoc.getMARS().GetCore(); 
+      g.setFont(new Font("Dialog", Font.BOLD, 21));
+      while(true){
+         
+         pDoc.Run(/*pDC*/);
+         pCore.printCore(g, pCore.getAB(), 0, (Core.CoreSize/4)*3, 20);
+         //repaint();
+         HitInfo H=new HitInfo(); 
+         if(pDoc != null ){ 
+            while( (pDoc.GetAHit(H)) ){
+               int x = 4*(H.HitLocation % 100);
+               int y = 4*( (H.HitLocation / 100 )+1 );    
+               g.setColor(H.rgb);                             
+               g.drawLine(x, y, x, y );
+               g.fillOval(x,y, 5, 5);
+               System.out.println("while paint x= "+x+" y ="+y);
+            }
+         }
+         if(pDoc.MARS.IsRedWarriorDead()){         
+            pDoc.Reset();
+            JOptionPane.showInputDialog("El Rojo esta Muerto.");
+            System.exit(0);
+            // "It's all over!
+            //Invalidate(TRUE);
+         } else {
+            g.setColor(Color.red);
+            g.drawLine(5,170,64*4,170);
+         }        
+         if(pDoc.MARS.IsBlueWarriorDead()){
+            pDoc.Reset();
+            JOptionPane.showInputDialog("El Azul pierde, Dude.");
+            System.exit(0);
+            //"I'm a loser, Baby!     
+            //Invalidate(TRUE);
+         } else {  
+            g.setColor(Color.blue);
+            g.drawLine(5,178,64*4,178);
+         }       
+         try {
+             Thread.sleep(100);
+         } catch (Exception e){ return ;}
+      }
+   } 
+   public void actionPerformed(ActionEvent e){
+      if(e.getSource() == openBlueMenuItem){
+        JFileChooser selector = new JFileChooser();
+        int r = selector.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+           pDoc.OnFileOpenBlue(selector.getSelectedFile().getName());
+        }
+      }
+      if(e.getSource() == openRedMenuItem){
+        JFileChooser selector = new JFileChooser();
+        int r = selector.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            pDoc.OnFileOpenRed(selector.getSelectedFile().getName());
+        }
+      }
+      if(e.getSource() == goMenuItem){
+         if(pDoc.RedWarriorLoaded && pDoc.BlueWarriorLoaded){
+           pDoc.OnCorewarGo();
+         } else {
+            ;
+            //CDialog Bitch(IDD_DIALOG1);
+            //Bitch.DoModal();
+         }  
+      }
+    } 
+   public static void main(String argv[]) {
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+	JFrame frame = new MainWin();
+   }
+}

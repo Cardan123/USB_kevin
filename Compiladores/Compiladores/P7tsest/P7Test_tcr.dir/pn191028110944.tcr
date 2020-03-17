@@ -1,0 +1,8 @@
+#Start recording tcl command: 10/28/2019 11:08:34
+#Project Location: //Mac/Home/Desktop/DSD/dsd1/P7tsest; Project name: P7Test
+prj_project open "//Mac/Home/Desktop/DSD/dsd1/P7tsest/P7Test.ldf"
+pgr_project close
+pgr_project open "//Mac/Home/Desktop/DSD/dsd1/P7tsest/impl1/impl1.xcf"
+pgr_program run
+prj_project close
+#Stop recording: 10/28/2019 11:09:44

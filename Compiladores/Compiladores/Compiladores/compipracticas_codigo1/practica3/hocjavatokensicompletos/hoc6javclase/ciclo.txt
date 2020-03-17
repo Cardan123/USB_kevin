@@ -1,0 +1,33 @@
+
+
+i = 0 
+while ( i < 10 ) { i = i + 1 print i * i * i }
+
+while ( i < 11 ) { i = i + 1 s = s + i print s }
+
+while ( i < 4 ) { i = i + 1 
+ } 
+
+
+proc f ( ) { i = 0 while ( i < 10 ) { i = i + 1 print i * i * i } } ; f ( ) 
+proc f ( ) { print 100 } ; proc h ( ) { f ( ) print 10 } ; proc j ( ) { h ( ) print 1 } ; j ( ) 
+
+proc f ( ) { print 100 } ; proc h ( ) { f ( ) print 10 } ; proc j ( ) { h ( ) print 1 } ; proc k ( ) { j ( ) print 5 } ; proc l ( ) { k ( ) print 25 } ; l ( )
+
+proc f ( ) { print 100 } ; proc h ( ) { f ( ) print 10 } ; proc j ( ) { h ( ) print 1 } ; proc k ( ) { j ( ) print 5 } ; proc l ( ) { k ( ) print 25 } ; proc  m ( ) { l ( ) print 125 } ; proc n ( ) { m ( ) print 625 } ; n ( ) 
+
+proc f ( ) { print $1 + $2 } ; f ( 22 , 44 )
+
+func fac ( ) { if ( $1 < 0 ) return 1 else return $1 * fac ( $1 - 1 ) } ; print fac ( 5 ) 
+proc may ( ) { if ( $1 < $2 ) print $2 else print $1 } ; may ( 55 , 777 ) 
+
+if ( 9 > 8 ) print 8 else print 0
+
+func fac ( ) { if ( $1 # 0 ) return 1 else return $1 * fac ( $1 - 1 ) } ; print fac ( 8 ) 
+
+
+
+
+proc doble ( ) { if ( $1 > 1 ) { doble ( $1 / 2 ) } print $1 } ;  doble ( 8192 )
+
+

@@ -1,0 +1,13 @@
+color 1 ;
+rectangulo 40 30 80 40 ;
+rectangulo 10 70 160 40 ;
+circulo 40 20 90 ;
+circulo 40 100 90 ;
+color 2 ;
+rectangulo 220 60 40 60 ;
+line 240 20 200 40 ;
+line 240 20 280 40 ;
+rectangulo 200 40 80 80 ;
+color 3 ;
+circulo 30 20 90 ;
+line 240 20 200 40 ;

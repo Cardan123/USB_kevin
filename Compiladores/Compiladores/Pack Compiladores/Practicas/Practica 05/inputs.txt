@@ -1,0 +1,13 @@
+vectorA=[1 2 3]
+vectorB=[2 4 6]
+vectorA+vectorB
+vectorA-vectorB
+vectorA:vectorB
+i=[1 0 0]
+j=[0 1 0]
+k=[0 0 1]
+i#j
+j#k
+k#i
+i#k
+j#i

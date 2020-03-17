@@ -1,0 +1,151 @@
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
+
+entity contador is
+	port (clk: in std_logic;
+		c: in std_logic_vector(2 downto 0);
+		e: in std_logic_vector(3 downto 0);		
+		s: inout std_logic_vector(3 downto 0)
+		);
+end contador;
+
+architecture A_deca of contador is
+
+CONSTANT DIG0: STD_LOGIC_VECTOR(3 DOWNTO 0):="1111";
+CONSTANT DIG1: STD_LOGIC_VECTOR(3 DOWNTO 0):="1110";
+CONSTANT DIG2: STD_LOGIC_VECTOR(3 DOWNTO 0):="1101";
+CONSTANT DIG3: STD_LOGIC_VECTOR(3 DOWNTO 0):="1100";
+CONSTANT DIG4: STD_LOGIC_VECTOR(3 DOWNTO 0):="1011";
+CONSTANT DIG5: STD_LOGIC_VECTOR(3 DOWNTO 0):="1010";
+CONSTANT DIG6: STD_LOGIC_VECTOR(3 DOWNTO 0):="1001";
+CONSTANT DIG7: STD_LOGIC_VECTOR(3 DOWNTO 0):="1000";
+CONSTANT DIG8: STD_LOGIC_VECTOR(3 DOWNTO 0):="0111";
+CONSTANT DIG9: STD_LOGIC_VECTOR(3 DOWNTO 0):="0110";
+CONSTANT DIG10: STD_LOGIC_VECTOR(3 DOWNTO 0):="0101";
+CONSTANT DIG11: STD_LOGIC_VECTOR(3 DOWNTO 0):="0100";
+CONSTANT DIG12: STD_LOGIC_VECTOR(3 DOWNTO 0):="0011";
+CONSTANT DIG13: STD_LOGIC_VECTOR(3 DOWNTO 0):="0010";
+CONSTANT DIG14: STD_LOGIC_VECTOR(3 DOWNTO 0):="0001";
+CONSTANT DIG15: STD_LOGIC_VECTOR(3 DOWNTO 0):="0000";
+
+CONSTANT G0: STD_LOGIC_VECTOR(3 DOWNTO 0):="1111";
+CONSTANT G1: STD_LOGIC_VECTOR(3 DOWNTO 0):="1110";
+CONSTANT G2: STD_LOGIC_VECTOR(3 DOWNTO 0):="1100";
+CONSTANT G3: STD_LOGIC_VECTOR(3 DOWNTO 0):="1101";
+CONSTANT G4: STD_LOGIC_VECTOR(3 DOWNTO 0):="1001";
+CONSTANT G5: STD_LOGIC_VECTOR(3 DOWNTO 0):="1000";
+CONSTANT G6: STD_LOGIC_VECTOR(3 DOWNTO 0):="1010";
+CONSTANT G7: STD_LOGIC_VECTOR(3 DOWNTO 0):="1011";
+CONSTANT G8: STD_LOGIC_VECTOR(3 DOWNTO 0):="0011";
+CONSTANT G9: STD_LOGIC_VECTOR(3 DOWNTO 0):="0010";
+CONSTANT G10: STD_LOGIC_VECTOR(3 DOWNTO 0):="0000";
+CONSTANT G11: STD_LOGIC_VECTOR(3 DOWNTO 0):="0001";
+CONSTANT G12: STD_LOGIC_VECTOR(3 DOWNTO 0):="0101";
+CONSTANT G13: STD_LOGIC_VECTOR(3 DOWNTO 0):="0100";
+CONSTANT G14: STD_LOGIC_VECTOR(3 DOWNTO 0):="0110";
+CONSTANT G15: STD_LOGIC_VECTOR(3 DOWNTO 0):="0111";
+
+begin
+	PROCESS(CLK,c,s)
+BEGIN
+	
+	IF(CLK'EVENT AND CLK='1')THEN
+	CASE c IS
+		
+		WHEN "000" =>			
+			CASE s IS
+				WHEN DIG0 => s<=DIG1;
+				WHEN DIG1 => s<=DIG2;
+				WHEN DIG2 => s<=DIG3;
+				WHEN DIG3 => s<=DIG4;
+				WHEN DIG4 => s<=DIG5;
+				WHEN DIG5 => s<=DIG6;
+				WHEN DIG6 => s<=DIG7;
+				WHEN DIG7 => s<=DIG8;
+				WHEN DIG8 => s<=DIG9;
+				WHEN DIG9 => s<=DIG10;
+				WHEN DIG10 => s<=DIG11;
+				WHEN DIG11 => s<=DIG12;
+				WHEN DIG12 => s<=DIG13;
+				WHEN DIG13 => s<=DIG14;
+				WHEN DIG14 => s<=DIG15;
+				WHEN OTHERS => s<=DIG0;
+			END CASE;
+		 
+		WHEN "001" =>
+			CASE s IS
+				WHEN DIG0 => s<=DIG15;
+				WHEN DIG1 => s<=DIG0;
+				WHEN DIG2 => s<=DIG1;
+				WHEN DIG3 => s<=DIG2;
+				WHEN DIG4 => s<=DIG3;
+				WHEN DIG5 => s<=DIG4;
+				WHEN DIG6 => s<=DIG5;
+				WHEN DIG7 => s<=DIG6;
+				WHEN DIG8 => s<=DIG7;
+				WHEN DIG9 => s<=DIG8;
+				WHEN DIG10 => s<=DIG9;
+				WHEN DIG11 => s<=DIG10;
+				WHEN DIG12 => s<=DIG11;
+				WHEN DIG13 => s<=DIG12;
+				WHEN DIG14 => s<=DIG13;
+				WHEN OTHERS => s<=DIG14;
+			END CASE;		 
+		WHEN "010" => 
+					s<=e;		
+		WHEN "011" => 
+					s<=s;		
+		WHEN "100" =>
+					s<=TO_STDLOGICVECTOR(TO_BITVECTOR(S) ROR 1);		
+		WHEN "101" =>
+					s<=TO_STDLOGICVECTOR(TO_BITVECTOR(S) ROL 1);
+		WHEN "110" =>
+				CASE s IS
+						WHEN G0 => s<=G1;
+						WHEN G1 => s<=G2;
+						WHEN G2 => s<=G3;
+						WHEN G3 => s<=G4;
+						WHEN G4 => s<=G5;
+						WHEN G5 => s<=G6;
+						WHEN G6 => s<=G7;
+						WHEN G7 => s<=G8;
+						WHEN G8 => s<=G9;
+						WHEN G9 => s<=G10;
+						WHEN G10 => s<=G11;
+						WHEN G11 => s<=G12;
+						WHEN G12 => s<=G13;
+						WHEN G13 => s<=G14;
+						WHEN G14 => s<=G15;
+						WHEN OTHERS => s<=G0;
+					END CASE;
+		
+		WHEN OTHERS=>
+					CASE s IS
+						WHEN G0 => s<=G15;
+						WHEN G1 => s<=G0;
+						WHEN G2 => s<=G1;
+						WHEN G3 => s<=G2;
+						WHEN G4 => s<=G3;
+						WHEN G5 => s<=G4;
+						WHEN G6 => s<=G5;
+						WHEN G7 => s<=G6;
+						WHEN G8 => s<=G7;
+						WHEN G9 => s<=G8;
+						WHEN G10 => s<=G9;
+						WHEN G11 => s<=G10;
+				¡		WHEN G12 => s<=G11;
+						WHEN G13 => s<= G12;
+						WHEN G14 => s<=G13;
+						WHEN OTHERS => s<=G14;
+					END CASE;
+						
+   		END CASE;
+  	END IF;
+END PROCESS;
+	
+	
+	
+end a_deca;

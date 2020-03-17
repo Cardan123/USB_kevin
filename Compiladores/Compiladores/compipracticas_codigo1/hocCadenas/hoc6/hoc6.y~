@@ -1,0 +1,282 @@
+%{
+#include<stdlib.h>
+#include <string.h>
+#include "hoc.h"
+#define code2(c1,c2)     code(c1); code(c2)
+#define code3(c1,c2,c3) code(c1); code(c2); code(c3)
+
+NodoL *symlist = (NodoL *)NULL;
+NodoL **globals = (NodoL **)NULL;
+
+void warning(char *s, char *t);
+void yyerror(char *s);
+void execerror(char *s, char *t);
+void run();
+
+%}
+%union {
+   Simbolo *sym;
+   Inst *inst;
+   int narg;      /*   número de argumentos */  
+}
+%token     <sym>   NUMBER STRING PRINT VAR BLTIN INDEF WHILE IF ELSE
+%token     <sym>   FUNCTION PROCEDURE RETURN FUNC PROC READ
+%token     <narg>  ARG
+%type      <inst>  expr stmt asgn prlist stmtlist
+%type      <inst>  cond while if begin end
+%type      <sym>   procname
+%type      <narg>  arglist
+%right	'='
+%left	OR
+%left	AND
+%left	GT GE LT LE EQ NE
+%left	'+' '_'
+%left	'*' '/'
+%left	UNARYMINUS NOT
+%right '^'
+%%
+list:            /* nada */
+   | list '\n'
+   | list defn '\n'
+   | list asgn '\n'  { //puts("list asgn");
+                       code2( strdup("pop1"), strdup("STOP") ); 
+                       return 1; }
+   | list stmt '\n'  { //puts("list stmt");
+                       code(strdup("STOP")); return 1; }
+   | list expr '\n'  { code2(strdup("printVal"), strdup("STOP")); 
+                       return 1; }
+   | list error '\n' { yyerrok; }
+   ; 
+asgn: VAR '=' expr { 
+      code3(strdup("varpush"), (Inst)$1, strdup("assign")); 
+      $$=$3;
+   }
+   |  ARG '=' expr
+   { defnonly("$"); code2(strdup("argassign"),(Inst)$1); 
+      $$=$3;
+   }
+   ;
+stmt: expr   { code(strdup("pop1")); }
+   //| PRINT expr    { code(strdup("printVal")); $$ = $2;} 
+   | RETURN { defnonly("return"); code(strdup("procret")); } 
+   | RETURN expr
+          { defnonly( "return" ); $$ = $2; code(strdup("funcret")) ; } 
+   | PROCEDURE begin '(' arglist ')'
+          { $$ = $2; code3(strdup("call"), (Inst)$1, (Inst)$4); } 
+   | PRINT prlist  { $$ = $2; }
+   | while cond stmt end {
+           ($1)[1] = (Inst)$3;     /* cuerpo del ciclo */
+           ($1)[2] = (Inst)$4; } 
+   | if cond stmt end {    /* if sin else */
+           ($1)[1] = (Inst)$3;     /* parte then */
+           ($1)[3] = (Inst)$4; 
+     } /* fin, si la condición no se cumple */ 
+   | if cond stmt end ELSE stmt end {      /* if con else */
+           ($1)[1] = (Inst)$3;     /* parte then */
+           ($1)[2] = (Inst)$6;     /* parte else */
+           ($1)[3] = (Inst)$7;   
+     } /* fin, si la condición no se cumple */ 
+   |  '{' stmtlist '}'     { $$ = $2; }
+   ; 
+cond:	'('   expr   ')' {   code(strdup("STOP"));  $$=  $2;   }
+        ;
+while:	WHILE   {   
+        $$ = code3(strdup("whilecode"), strdup("STOP"), strdup("STOP")); 
+        }
+	;
+if:IF   { $$=code(strdup("ifcode")); 
+          code3( strdup("STOP"), strdup("STOP"), strdup("STOP")); }
+	;
+begin:  /* nada */          { $$ = progp; }
+   ;
+end:      /* nada */ { code( strdup("STOP") ); $$ = progp; }
+	;
+stmtlist: /* nada */        { $$ = progp; }
+   | stmtlist '\n' 
+   | stmtlist stmt
+   ;
+expr:  NUMBER {  //puts("NUMBER"); 
+                 $$ = code2(strdup("constpush"), (Inst)$1); 
+              }
+   |   VAR    {  
+                 $$ = code3(strdup("varpush"), (Inst)$1, strdup("eval"));
+              } 
+   | ARG    {   //puts("yacc ARG");
+                     defnonly("$"); $$ = code2(strdup("arg"), (Inst)$1); }
+   | asgn
+   | FUNCTION begin '(' arglist ')'
+           { $$ = $2; code3(strdup("call"),(Inst)$1,(Inst)$4); }  
+   | READ '(' VAR ')' { $$ = code2(strdup("varread"), (Inst)$3); }  
+   | BLTIN '(' expr ')' { $$ = $3; code2(strdup("bltin"), (Inst)$1->u.ptr);}
+   | '(' expr ')'      { $$ = $2; }
+   | expr '+' expr     { code(strdup("add")); }
+   | expr '-' expr     { code(strdup("sub")); }
+   | expr '*' expr     { code(strdup("mul")); }
+   | expr '/' expr     { code(strdup("div")); }
+   | expr '%' expr     { code(strdup("mod")); }
+   | expr '^' expr     { code(strdup("power")); }
+   | '-' expr %prec UNARYMINUS { code(strdup("negate")); }
+   | expr GT expr  { code(strdup("gt")); }
+   | expr GE expr  { code(strdup("ge")); }
+   | expr LT expr  { code(strdup("lt")); }
+   | expr LE expr  { code(strdup("le")); }
+   | expr EQ expr  { code(strdup("eq")); }
+   | expr NE expr  { code(strdup("ne")); }
+   | expr AND expr { code(strdup("and")); }
+   | expr OR expr  { code(strdup("or")); }
+   | NOT expr      { $$ = $2; code(strdup("not")); }
+   ;
+prlist:expr                {   code(strdup("printVal")); }
+   |   STRING              {    $$ = code2(strdup("prstr"), (Inst)$1); }
+   |   prlist ','  expr    {   code(strdup("printVal")); }
+   |   prlist ','  STRING  {   code2(strdup("prstr"), (Inst)$3); }
+   ;
+defn:    FUNC procname { $2->tipo=FUNCTION; indef=1; }
+'(' ')' stmt { code(strdup("procret")); define($2); indef=0; } 
+   | PROC procname { $2->tipo=PROCEDURE; indef=1; }
+'(' ')' stmt { code(strdup("procret")); define($2); indef=0; }
+   ;
+procname: VAR
+   | FUNCTION 
+   | PROCEDURE
+   ;
+arglist:  /* nada */   { $$ = 0; }
+   | expr                 { $$ = 1; }
+   | arglist ',' expr     { $$ = $1 + 1; }
+   ;
+%%
+/* fin de la gramática */  
+
+#include <stdio.h>
+#include <signal.h>
+#include <setjmp.h>
+
+jmp_buf begin;
+int    indef;
+char   *infile;       /* nombre de archivo de entrada */ 
+FILE    *fin;         /* apuntador a archivo de entrada */
+char   **gargv;       /* lista global de argumentos */ 
+int    gargc; 
+int c;  
+
+char *progname;
+int lineno = 1;
+
+/*int yylex(){
+   int c;
+   while  ((c=getc(stdin)) ==  ' ' ||  c ==   '\t')
+          ;
+   if (c == EOF)
+	return 0; 
+   if (isdigit(c)) {   
+      double d;
+      ungetc(c, stdin); 
+      scanf("%lf", &d);
+      yylval.sym = install(globals, "numero", NUMBER, creaDoble(d));
+      return NUMBER; 
+   }
+   if (isalpha(c)) { 
+      Simbolo *s;
+      char sbuf[100], *p = sbuf; 
+      do {
+         if (p >= sbuf + sizeof(sbuf) - 1) { 
+			*p = '\0'; 
+			execerror("name too long", sbuf);
+         }
+      *p++ = c;
+      } while ((c=getchar()) != EOF && isalnum(c)); 
+      ungetc(c, stdin); 
+      *p = '\0'; 
+      if ((s=lookup(*globals,sbuf)) == 0)
+         s=install(globals, sbuf, INDEF, NULL); 
+      yylval.sym = s;
+      return s->tipo == INDEF ? VAR : s->tipo;
+   }
+   return c; 
+}*/
+void defnonly( char *s )     /* advertena la si hay definición i legal */
+{
+if (!indef)
+	execerror(s, "used outside definition"); 
+} 
+void yyerror(char *s) {
+   warning(s, (char *)0); 
+} 
+void execerror(char *s, char *t){/* recuperación de errores de tiempo de ejecución */
+warning(s, t);
+fseek( fin, 0L, 2);       /* sacar el resto del archivo */
+longjmp(begin, 0); 
+}
+void fpecatch(){
+   execerror("floating point exception", (char *) 0); 
+}
+int main(int argc, char **argv){       /* hoc6 */ 
+int i;
+void fpecatch();
+progname = argv[0];
+if (argc == 1) {        /* simular una lista de argumentos */ 
+	static char *stdinonly[] = { "-" };
+	gargv = stdinonly;
+	gargc = 1; } 
+else {
+	gargv = argv+1;
+	gargc = argc-1; 
+}
+init(); 
+while (moreinput())
+	run(); 
+return 0;
+}
+int moreinput( ) {
+if (gargc-- <= 0)
+	return 0; 
+if (fin && fin != stdin)
+fclose(fin); 
+infile = *gargv++; 
+printf("arch ent=(%s)\n",infile);
+lineno = 1; 
+if (strcmp(infile, "-") == 0) {
+	fin = stdin;
+	infile = 0; 
+} else if ((fin=fopen(infile, "r")) == NULL) {
+	fprintf(stderr, "%s: can't open %s\n" , progname, infile);
+	return moreinput();
+}
+return 1;
+}
+void run() {
+   Inst *pc1;
+   setjmp(begin);
+   signal(SIGFPE,   fpecatch);
+   for   (initcode();   yyparse();   initcode()){
+        /*for  (pc1 = prog; pc1 < progp ; ) {
+              printf(" maincta = (%d, %s)\n", pc1-prog , *pc1);
+              pc1 = pc1 + 1; 
+        }*/ 
+	execute(progbase); 
+        //puts("despues execute(progbase)");
+   }
+}
+void warning(char *s, char *t) {
+fprintf(stderr, "%s: %s", progname, s); 
+if (t)
+	fprintf(stderr, " %s", t); 
+if (infile)
+	fprintf(stderr, " in %s", infile); 
+fprintf(stderr, " near line %d\n", lineno); 
+while (c != '\n' && c != EOF)
+c = getc(fin);  /* sacar el resto del renglón de entrada */
+if (c == '\n')
+	lineno++;
+}		                                                                          
+
+
+
+
+
+
+
+
+
+
+

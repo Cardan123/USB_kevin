@@ -1,0 +1,380 @@
+
+<!-- saved from url=(0071)http://nakkaya.com/2010/08/24/a-micro-manual-for-lisp-implemented-in-c/ -->
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="description"><meta content="lisp c" name="keywords"><meta content="Nurullah Akkaya" name="author"><link href="http://nakkaya.com/images/favicon.ico" rel="icon" type="image/x-icon"><link href="http://nakkaya.com/images/favicon.ico" rel="shortcut icon" type="image/x-icon"><link href="./A micro-manual for LISP Implemented in C_files/default.css" rel="stylesheet" type="text/css"><link href="http://nakkaya.com/rss-feed" rel="alternate" title="An explorer&#39;s log" type="application/rss+xml"><link href="./A micro-manual for LISP Implemented in C_files/A micro-manual for LISP Implemented in C.html" rel="canonical"><script src="./A micro-manual for LISP Implemented in C_files/MathJax.js" type="text/javascript"></script><title>A micro-manual for LISP Implemented in C</title><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">.MathJax_Preview .MJXc-math {color: inherit!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXc-script {font-size: .8em}
+.MJXc-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXc-bold {font-weight: bold}
+.MJXc-italic {font-style: italic}
+.MJXc-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-largeop {font-size: 150%}
+.MJXc-largeop.MJXc-int {vertical-align: -.2em}
+.MJXc-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXc-display {display: block; text-align: center; margin: 1em 0}
+.MJXc-math span {display: inline-block}
+.MJXc-box {display: block!important; text-align: center}
+.MJXc-box:after {content: " "}
+.MJXc-rule {display: block!important; margin-top: .1em}
+.MJXc-char {display: block!important}
+.MJXc-mo {margin: 0 .15em}
+.MJXc-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXc-denom {display: inline-table!important; width: 100%}
+.MJXc-denom > * {display: table-row!important}
+.MJXc-surd {vertical-align: top}
+.MJXc-surd > * {display: block!important}
+.MJXc-script-box > *  {display: table!important; height: 50%}
+.MJXc-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXc-script-box > *:last-child > * {vertical-align: bottom}
+.MJXc-script-box > * > * > * {display: block!important}
+.MJXc-mphantom {visibility: hidden}
+.MJXc-munderover {display: inline-table!important}
+.MJXc-over {display: inline-block!important; text-align: center}
+.MJXc-over > * {display: block!important}
+.MJXc-munderover > * {display: table-row!important}
+.MJXc-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXc-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXc-mtr {display: table-row!important}
+.MJXc-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXc-mtr > .MJXc-mtd:first-child {padding-left: 0}
+.MJXc-mtr:first-child > .MJXc-mtd {padding-top: 0}
+.MJXc-mlabeledtr {display: table-row!important}
+.MJXc-mlabeledtr > .MJXc-mtd:first-child {padding-left: 0}
+.MJXc-mlabeledtr:first-child > .MJXc-mtd {padding-top: 0}
+.MJXc-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXc-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXc-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXc-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXc-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXc-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXc-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXc-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXc-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXc-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXc-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_CHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body><div id="MathJax_Message" style="display: none;"></div><div id="wrap"><div id="header"><h1><a href="http://nakkaya.com/">nakkaya<span class="fade-small">dot</span><span class="fade">com</span></a></h1><div class="pages"><a class="page" href="http://nakkaya.com/">Home</a> | <a class="page" href="http://nakkaya.com/projects.html">Projects</a> | <a class="page" href="http://nakkaya.com/archives.html">Archives</a> | <a class="page" href="http://nakkaya.com/tags/">Tags</a> | <a class="page" href="http://nakkaya.com/contact.html" rel="author">About</a><form action="http://www.google.com/search" id="searchform" method="get"><div><input class="box" id="s" name="q" type="text"><input name="sitesearch" type="hidden" value="nakkaya.com"></div></form></div></div><div id="content"><div id="post"><h2 class="page-title">A micro-manual for LISP Implemented in C</h2><p>
+Recently I had to go through some code that uses the <a href="http://www.sics.se/~adam/uip/index.php/Main_Page">uIP</a> TCP/IP stack,
+which reminded me, it has been a long time since I did something in C
+so I ended up spending the weekend implementing the 10 rules <a href="http://en.wikipedia.org/wiki/John_McCarthy_(computer_scientist)">John
+McCarthy</a> described in his paper <a href="https://docs.google.com/fileview?id=0B0ZnV_0C-Q7IOTRkNzVjZjMtMWE1NC00YzQ3LTgzMWEtM2UwY2I1YzdmNmM5&hl=en">A Micro-Manual for Lisp - not the
+whole Truth</a>.
+</p>
+
+<p>
+This is a literate program, the code in this document is the
+executable source, in order to extract it, open this <a href="https://github.com/nakkaya/nakkaya.com/tree/master/resources/posts/2010-08-24-a-micro-manual-for-lisp-implemented-in-c.org">raw file</a> with
+emacs and run,
+</p>
+
+<pre class="example">M-x org-babel-tangle
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-c" id="lisp-objects"><span style="color: #ff5f00; font-weight: bold;">enum</span> <span style="font-weight: bold; text-decoration: underline;">type</span> {<span style="font-weight: bold; font-style: italic;">CONS</span>, <span style="font-weight: bold; font-style: italic;">ATOM</span>, <span style="font-weight: bold; font-style: italic;">FUNC</span>, <span style="font-weight: bold; font-style: italic;">LAMBDA</span>};
+
+<span style="color: #ff5f00; font-weight: bold;">typedef</span> <span style="color: #ff5f00; font-weight: bold;">struct</span>{
+  <span style="color: #ff5f00; font-weight: bold;">enum</span> <span style="font-weight: bold; text-decoration: underline;">type</span> <span style="font-weight: bold; font-style: italic;">type</span>;
+} <span style="font-weight: bold; text-decoration: underline;">object</span>;
+
+<span style="color: #ff5f00; font-weight: bold;">typedef</span> <span style="color: #ff5f00; font-weight: bold;">struct</span> {
+  <span style="color: #ff5f00; font-weight: bold;">enum</span> <span style="font-weight: bold; text-decoration: underline;">type</span> <span style="font-weight: bold; font-style: italic;">type</span>;
+  <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">name</span>;
+} <span style="font-weight: bold; text-decoration: underline;">atom_object</span>;
+
+<span style="color: #ff5f00; font-weight: bold;">typedef</span> <span style="color: #ff5f00; font-weight: bold;">struct</span> {
+  <span style="color: #ff5f00; font-weight: bold;">enum</span> <span style="font-weight: bold; text-decoration: underline;">type</span> <span style="font-weight: bold; font-style: italic;">type</span>;
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">car</span>;
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">cdr</span>;
+} <span style="font-weight: bold; text-decoration: underline;">cons_object</span>;
+
+<span style="color: #ff5f00; font-weight: bold;">typedef</span> <span style="color: #ff5f00; font-weight: bold;">struct</span> {
+  <span style="color: #ff5f00; font-weight: bold;">enum</span> <span style="font-weight: bold; text-decoration: underline;">type</span> <span style="font-weight: bold; font-style: italic;">type</span>;
+  <span style="font-weight: bold; text-decoration: underline;">object</span>* (*<span style="color: #d7af00; font-weight: bold;">fn</span>)(<span style="font-weight: bold; text-decoration: underline;">object</span>*,<span style="font-weight: bold; text-decoration: underline;">object</span>*);
+} <span style="font-weight: bold; text-decoration: underline;">func_object</span>;
+
+<span style="color: #ff5f00; font-weight: bold;">typedef</span> <span style="color: #ff5f00; font-weight: bold;">struct</span> {
+  <span style="color: #ff5f00; font-weight: bold;">enum</span> <span style="font-weight: bold; text-decoration: underline;">type</span> <span style="font-weight: bold; font-style: italic;">type</span>;
+  <span style="font-weight: bold; text-decoration: underline;">object</span>* <span style="font-weight: bold; font-style: italic;">args</span>;
+  <span style="font-weight: bold; text-decoration: underline;">object</span>* <span style="font-weight: bold; font-style: italic;">sexp</span>;
+} <span style="font-weight: bold; text-decoration: underline;">lambda_object</span>;
+</pre>
+</div>
+
+<p>
+We begin by defining four types of objects we will be using. CONS is
+what we use to hold lists, ATOMs are letters or digits anything that is
+not used by LISP, a FUNC holds a reference to a C function and a LAMBDA
+holds a lambda expression.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c" id="lisp-read"><span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="color: #d7af00; font-weight: bold;">read_tail</span>(<span style="font-weight: bold; text-decoration: underline;">FILE</span> *<span style="font-weight: bold; font-style: italic;">in</span>) {
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">token</span> = next_token(in);
+
+  <span style="color: #ff5f00; font-weight: bold;">if</span>(strcmp(name(token),<span style="color: #afafff; font-style: italic;">")"</span>) == 0)
+    <span style="color: #ff5f00; font-weight: bold;">return</span> <span style="font-weight: bold; text-decoration: underline;">NULL</span>;
+  <span style="color: #ff5f00; font-weight: bold;">else</span> <span style="color: #ff5f00; font-weight: bold;">if</span>(strcmp(name(token),<span style="color: #afafff; font-style: italic;">"("</span>) == 0) {
+    <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">first</span> = read_tail(in);
+    <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">second</span> = read_tail(in);
+    <span style="color: #ff5f00; font-weight: bold;">return</span> cons(first, second);
+  }<span style="color: #ff5f00; font-weight: bold;">else</span>{
+    <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">first</span> = token;
+    <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">second</span> = read_tail(in);
+    <span style="color: #ff5f00; font-weight: bold;">return</span> cons(first, second);
+  }
+}
+
+<span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="color: #d7af00; font-weight: bold;">read</span>(<span style="font-weight: bold; text-decoration: underline;">FILE</span> *<span style="font-weight: bold; font-style: italic;">in</span>) {
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">token</span> = next_token(in);
+
+  <span style="color: #ff5f00; font-weight: bold;">if</span>(strcmp(name(token),<span style="color: #afafff; font-style: italic;">"("</span>) == 0)
+    <span style="color: #ff5f00; font-weight: bold;">return</span> read_tail(in);
+
+  <span style="color: #ff5f00; font-weight: bold;">return</span> token;
+}
+</pre>
+</div>
+
+<p>
+<i>read</i> gets the next token from the file, if it is a left parentheses it
+calls <i>read<sub>tail</sub></i> to parse the rest of the list, otherwise returns the
+token read. A list (LIST e1 … en) is defined for each n to be (CONS
+e1 (CONS … (CONS en NIL))) so <b>read<sub>tail</sub></b> will keep calling itself
+concatenating cons cells until it hits a right parentheses.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c" id="lisp-env"><span style="font-weight: bold; text-decoration: underline;">object</span>* <span style="color: #d7af00; font-weight: bold;">init_env</span>(){
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">env</span> = cons(cons(atom(<span style="color: #afafff; font-style: italic;">"QUOTE"</span>),cons(func(&amp;fn_quote),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)),<span style="font-weight: bold; text-decoration: underline;">NULL</span>);
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"CAR"</span>),cons(func(&amp;fn_car),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"CDR"</span>),cons(func(&amp;fn_cdr),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"CONS"</span>),cons(func(&amp;fn_cons),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"EQUAL"</span>),cons(func(&amp;fn_equal),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"ATOM"</span>),cons(func(&amp;fn_atom),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"COND"</span>),cons(func(&amp;fn_cond),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"LAMBDA"</span>),cons(func(&amp;fn_lambda),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+  append(env,cons(atom(<span style="color: #afafff; font-style: italic;">"LABEL"</span>),cons(func(&amp;fn_label),<span style="font-weight: bold; text-decoration: underline;">NULL</span>)));
+
+  tee = atom(<span style="color: #afafff; font-style: italic;">"#T"</span>);
+  nil = cons(<span style="font-weight: bold; text-decoration: underline;">NULL</span>,<span style="font-weight: bold; text-decoration: underline;">NULL</span>);
+
+  <span style="color: #ff5f00; font-weight: bold;">return</span> env;
+}
+</pre>
+</div>
+
+<p>
+Now that we have a list to execute, we need to define the environment we
+will be evaluating the expressions in. Environment is a list of pairs
+during evaluation we replace those atoms with their values, we also
+define tee to be the atom <b>#T</b> and nil to be the empty list.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c" id="lisp-eval"><span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="color: #d7af00; font-weight: bold;">eval_fn</span> (<span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">sexp</span>, <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">env</span>){
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">symbol</span> = car(sexp);
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">args</span> = cdr(sexp);
+
+  <span style="color: #ff5f00; font-weight: bold;">if</span>(symbol-&gt;type == LAMBDA)
+    <span style="color: #ff5f00; font-weight: bold;">return</span> fn_lambda(sexp,env);
+  <span style="color: #ff5f00; font-weight: bold;">else</span> <span style="color: #ff5f00; font-weight: bold;">if</span>(symbol-&gt;type == FUNC)
+    <span style="color: #ff5f00; font-weight: bold;">return</span> (((<span style="font-weight: bold; text-decoration: underline;">func_object</span> *) (symbol))-&gt;fn)(args, env);
+  <span style="color: #ff5f00; font-weight: bold;">else</span>
+    <span style="color: #ff5f00; font-weight: bold;">return</span> sexp;
+}
+
+<span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="color: #d7af00; font-weight: bold;">eval</span> (<span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">sexp</span>, <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">env</span>) {
+  <span style="color: #ff5f00; font-weight: bold;">if</span>(sexp == <span style="font-weight: bold; text-decoration: underline;">NULL</span>)
+    <span style="color: #ff5f00; font-weight: bold;">return</span> nil;
+
+  <span style="color: #ff5f00; font-weight: bold;">if</span>(sexp-&gt;type == CONS){
+    <span style="color: #ff5f00; font-weight: bold;">if</span>(car(sexp)-&gt;type == ATOM &amp;&amp; strcmp(name(car(sexp)), <span style="color: #afafff; font-style: italic;">"LAMBDA"</span>) == 0){
+      <span style="font-weight: bold; text-decoration: underline;">object</span>* <span style="font-weight: bold; font-style: italic;">largs</span> = car(cdr(sexp));
+      <span style="font-weight: bold; text-decoration: underline;">object</span>* <span style="font-weight: bold; font-style: italic;">lsexp</span> = car(cdr(cdr(sexp)));
+
+      <span style="color: #ff5f00; font-weight: bold;">return</span> lambda(largs,lsexp);
+    }<span style="color: #ff5f00; font-weight: bold;">else</span>{
+      <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">accum</span> = cons(eval(car(sexp),env),<span style="font-weight: bold; text-decoration: underline;">NULL</span>);
+      sexp = cdr(sexp);
+
+      <span style="color: #ff5f00; font-weight: bold;">while</span> (sexp != <span style="font-weight: bold; text-decoration: underline;">NULL</span> &amp;&amp; sexp-&gt;type == CONS){
+        append(accum,eval(car(sexp),env));
+        sexp = cdr(sexp);
+      }
+
+      <span style="color: #ff5f00; font-weight: bold;">return</span> eval_fn(accum,env);
+    }
+  }<span style="color: #ff5f00; font-weight: bold;">else</span>{
+    <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">val</span> = lookup(name(sexp),env);
+    <span style="color: #ff5f00; font-weight: bold;">if</span>(val == <span style="font-weight: bold; text-decoration: underline;">NULL</span>)
+      <span style="color: #ff5f00; font-weight: bold;">return</span> sexp;
+    <span style="color: #ff5f00; font-weight: bold;">else</span>
+      <span style="color: #ff5f00; font-weight: bold;">return</span> val;
+  }
+}
+</pre>
+</div>
+
+<p>
+When we pass an S-Expression to eval, first we need to check if it is a
+lambda expression if it is we don't evaluate it we just return a lambda
+object, if it is a list we call eval for each cell, this allows us to
+iterate through all the atoms in the list when we hit an atom we lookup
+its value in the environment if it has a value associated with it we
+return that otherwise we return the atom, at this point,
+</p>
+
+<pre class="example">(QUOTE A)
+</pre>
+
+<p>
+is transformed into,
+</p>
+
+<pre class="example">(func-obj atom-obj)
+</pre>
+
+<p>
+all eval\<sub>fn</sub> has to do is check the type of the car of the list, if it is
+a function\<sub>object</sub> it will call the function pointed by the
+function\<sub>object</sub> passing cdr of the list as argument, if it is a
+lambda\<sub>object</sub> we call the fn\<sub>lambda</sub> which executes the lambda
+expression else we return the S-Expression.
+</p>
+
+<p>
+Each function<sub>object</sub> holds a pointer to a function that takes two
+arguments, arguments to the function and the environment we are executing
+it in and returns an object.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c" id="lisp-lambda"><span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="color: #d7af00; font-weight: bold;">fn_lambda</span> (<span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">args</span>, <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">env</span>) {
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">lambda</span> = car(args);
+  args = cdr(args);
+
+  <span style="font-weight: bold; text-decoration: underline;">object</span> *<span style="font-weight: bold; font-style: italic;">list</span> = interleave((((<span style="font-weight: bold; text-decoration: underline;">lambda_object</span> *) (lambda))-&gt;args),args);
+  <span style="font-weight: bold; text-decoration: underline;">object</span>* <span style="font-weight: bold; font-style: italic;">sexp</span> = replace_atom((((<span style="font-weight: bold; text-decoration: underline;">lambda_object</span> *) (lambda))-&gt;sexp),list);
+  <span style="color: #ff5f00; font-weight: bold;">return</span> eval(sexp,env);
+}
+</pre>
+</div>
+
+<p>
+A lambda<sub>object</sub> holds two lists,
+</p>
+
+<pre class="example">(LAMBDA (X Y) (CONS (CAR X) Y))
+args -&gt; (X Y)
+sexp -&gt; (CONS (CAR X) Y))
+</pre>
+
+<p>
+to execute it first thing we do is interleave the args list with the
+arguments passed so while executing following,
+</p>
+
+<pre class="example">((LAMBDA (X Y) (CONS (CAR X) Y)) (QUOTE (A B)) (CDR (QUOTE (C D))))
+</pre>
+
+<p>
+list will be,
+</p>
+
+<pre class="example">((X (A B)) (Y (D)))
+</pre>
+
+<p>
+then we iterate over the sexp and replace every occurrence of X with (A
+B) and every occurrence of Y with (D) then call eval on the resulting
+expression.
+</p>
+
+<p>
+This covers everything we need to interpret the LISP defined in the
+paper passing a file containing the following,
+</p>
+
+<pre class="example">(QUOTE A)
+(QUOTE (A B C))
+(CAR (QUOTE (A B C)))
+(CDR (QUOTE (A B C)))
+(CONS (QUOTE A) (QUOTE (B C)))
+(EQUAL (CAR (QUOTE (A B))) (QUOTE A))
+(EQUAL (CAR (CDR (QUOTE (A B)))) (QUOTE A))
+(ATOM (QUOTE A))
+(COND ((ATOM (QUOTE A)) (QUOTE B)) ((QUOTE T) (QUOTE C)))
+((LAMBDA (X Y) (CONS (CAR X) Y)) (QUOTE (A B)) (CDR (QUOTE (C D))))
+(LABEL FF (LAMBDA (X Y) (CONS (CAR X) Y)))
+(FF (QUOTE (A B)) (CDR (QUOTE (C D))))
+(LABEL XX (QUOTE (A B)))
+(CAR XX)
+</pre>
+
+<p>
+should produce,
+</p>
+
+<pre class="example">lisp/ $ gcc -Wall lisp.c &amp;&amp; ./a.out test.lisp 
+&gt; A
+&gt; (A B C)
+&gt; A
+&gt; (B C)
+&gt; (A B C)
+&gt; #T
+&gt; ()
+&gt; #T
+&gt; B
+&gt; (A D)
+&gt; #T
+&gt; (A D)
+&gt; #T
+&gt; A
+</pre>
+<div class="post-tags">Tags: <a href="http://nakkaya.com/tags/#lisp">lisp </a><a href="http://nakkaya.com/tags/#c">c </a></div></div><div id="related"><h3 class="random-posts">Random Posts</h3><ul class="posts"><li><span>18 May 2010</span><a href="http://nakkaya.com/2010/05/18/arduino-line-follower-take-two/">Arduino Line Follower Take Two</a></li><li><span>29 Jun 2011</span><a href="http://nakkaya.com/2011/06/29/ferret-an-experimental-clojure-compiler/">Ferret: An Experimental Clojure Compiler</a></li><li><span>18 Oct 2010</span><a href="http://nakkaya.com/2010/10/18/towards-a-clojure-autopilot-guidance/">Towards a Clojure Autopilot - Guidance</a></li><li><span>30 Aug 2012</span><a href="http://nakkaya.com/2012/08/30/create-manage-virtualBox-vms-from-the-command-line/">Create/Manage VirtualBox VMs from the Command Line</a></li><li><span>10 Feb 2010</span><a href="http://nakkaya.com/2010/02/10/a-simple-clojure-irc-client/">A Simple Clojure IRC Client</a></li></ul></div><div id="disqus"><div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./A micro-manual for LISP Implemented in C_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 5254px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div><script type="text/javascript" src="./A micro-manual for LISP Implemented in C_files/embed.js"></script><noscript>&lt;a href="http://disqus.com/forums/nakkaya/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript></div></div><div id="footer"><a href="http://nakkaya.com/rss-feed"> RSS Feed</a><p>© 2014<a href="http://nakkaya.com/"> Nurullah Akkaya</a></p></div></div><script type="text/javascript">
+//<![CDATA[
+(function() {
+	     var links = document.getElementsByTagName('a');
+	     var query = '?';
+	     for(var i = 0; i < links.length; i++) {
+		     if(links[i].href.indexOf('#disqus_thread') >= 0) {
+								       query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+								       }
+		     }
+	     document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/nakkaya/get_num_replies.js' + query + '"></' + 'script>');
+	     })();
+//]]>
+</script><script charset="utf-8" type="text/javascript" src="./A micro-manual for LISP Implemented in C_files/get_num_replies.js"></script></body></html>

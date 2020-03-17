@@ -1,0 +1,16 @@
+a=+1+0j
+if(a==+1+0j){
+	a =a++1+1j
+	print a
+}
+b=+1+0j
+if(a>b){
+	a =a++0+1j
+	print a
+}
+while(a<=+10+0j){
+	print a
+	a=a++1+0j
+}
+
+

@@ -1,0 +1,531 @@
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.imageio.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.util.*;
+import java.awt.color.ColorSpace;
+import java.io.*;
+
+class Filtradora {
+    private final static double DEG_TO_RAD = Math.PI / 360;
+    private BufferedImage foto;    
+    private int r,g,b;
+    private Color c;
+    private Hashtable mOps;
+    public Filtradora(){ 
+    mOps = new Hashtable();
+    float ninth = 1.0f / 9.0f;
+    float[] blurKernel0 = {
+    1.0f/16.0f, 1.0f/8.0f, 1.0f/16.0f, 
+    1.0f/8.0f, 1.0f/4.0f, 1.0f/8.0f, 
+    1.0f/16.0f, 1.0f/8.0f, 1.0f/16.0f, 
+    };
+    float[] blurKernel = {
+        ninth, ninth, ninth,
+        ninth, ninth, ninth,
+        ninth, ninth, ninth,
+    };
+    mOps.put("Blur", new ConvolveOp(
+        new Kernel(3, 3, blurKernel)));
+    float[] edgeKernel = {
+        0.0f, -1.0f, 0.0f,
+        -1.0f, 4.0f, -1.0f,
+        0.0f, -1.0f, 0.0f
+    };
+    mOps.put("Edge detector", new ConvolveOp(
+        new Kernel(3, 3, edgeKernel)));
+    float[] sharpKernel = {
+        0.0f, -1.0f, 0.0f,
+        -1.0f, 5.0f, -1.0f,
+        0.0f, -1.0f, 0.0f
+    };
+    mOps.put("Sharpen", new ConvolveOp(
+        new Kernel(3, 3, sharpKernel),
+        ConvolveOp.EDGE_NO_OP, null));
+    float[] repujadoKernel = {
+        -2.0f, -1.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,
+        0.0f,  1.0f, 2.0f
+    };
+    mOps.put("Repujado", new ConvolveOp(
+        new Kernel(3, 3, repujadoKernel),
+        ConvolveOp.EDGE_NO_OP, null));
+    short[] Filtradora = new short[256];
+    short[] invert = new short[256];
+    short[] straight = new short[256];
+    for (int i = 0; i < 256; i++) {
+      Filtradora[i] = (short)(i - (i % 32));
+      invert[i] = (short)(255 - i);
+      straight[i] = (short)i;
+    }  
+    mOps.put("Posteriza", new LookupOp(new ShortLookupTable(0, Filtradora),null));
+    mOps.put("Invert", new LookupOp(new ShortLookupTable(0, invert), null));
+    short[][] blueInvert = new short[][] { straight, straight, invert };
+    mOps.put("Invert blue", new LookupOp(new ShortLookupTable(0, blueInvert), null));   
+    mOps.put("Threshold 192", createThresholdOp(192, 0, 255));
+    mOps.put("Threshold 128", createThresholdOp(128, 0, 255));
+    mOps.put("Threshold 64", createThresholdOp(64, 0, 255));
+  }  
+  private BufferedImageOp createThresholdOp(int threshold,
+    int minimum, int maximum) {
+    short[] thresholdArray = new short[256];
+    for (int i = 0; i < 256; i++) {
+      if (i < threshold)
+        thresholdArray[i] = (short)minimum;
+      else
+        thresholdArray[i] = (short)maximum;
+      }
+    return new LookupOp(new ShortLookupTable(0, thresholdArray), null);
+  }
+  void procesa(String key, BufferedImage fSrcImage){
+  	BufferedImageOp op = (BufferedImageOp)mOps.get(key);
+        this.foto = op.filter(fSrcImage, null);
+  }
+  public void convolveImage(Kernel kernel, BufferedImage fSrcImage) {
+        BufferedImageOp op = new ConvolveOp(kernel);
+        this.foto = op.filter(fSrcImage, null);
+  }
+  public void ponFiltro(Kernel kernel){
+        mOps.put("User", new ConvolveOp(kernel) );
+  }
+  public void SetFiltradora(BufferedImage fSrcImage, int nivel) {
+    	short[] Filtradora = new short[256];
+    	for (int i = 0; i < 256; i++)
+    		Filtradora[i] = (short)(i - (i % nivel));
+    	BufferedImageOp FiltradoraOp =
+       new LookupOp(new ShortLookupTable(0, Filtradora), null);
+    	this.foto = FiltradoraOp.filter (fSrcImage, null);
+  }
+  
+    
+ public void brillo(BufferedImage imgsel, int spromedio) {
+	BufferedImage bi = null;
+	if (imgsel != null) {
+		bi = new BufferedImage(imgsel.getWidth(), imgsel.getHeight(),
+                                       imgsel.getType());
+		for (int x = 0; x < imgsel.getWidth(); x++) {
+			for (int y = 0; y < imgsel.getHeight(); y++) {
+				Color c = new Color(imgsel.getRGB(x, y));
+				int r = c.getRed();
+				int g = c.getGreen();
+				int b = c.getBlue();
+				r+=spromedio;
+                                g+=spromedio;
+                                b+=spromedio;
+                    if (r>255){
+                        r=255;
+                    }
+                    if (g>255){
+                        g=255;
+                    }
+                    if (b>255){
+                        b=255;
+                    }
+                    if (r<0){
+                        r=0;
+                    }
+                    if (g<0){
+                        g=0;
+                    }
+                    if (b<0){
+                        b=0;
+                    }
+
+					bi.setRGB(x, y, new Color(r, g, b).getRGB());
+				}
+			}
+		}
+		this.foto = bi;
+	}
+    public void ColorDodgeBlend(BufferedImage base, BufferedImage blend) {
+    BufferedImage buffOut = new BufferedImage(base.getWidth(),
+                                             base.getHeight(),BufferedImage.TYPE_INT_RGB);
+    Graphics2D g = (Graphics2D) blend.getGraphics();
+    for (int x = 0; x < base.getWidth(); x++) {
+	for (int y = 0; y < base.getHeight(); y++) {
+        Color cFilter = new Color(blend.getRGB(x, y));
+        Color cSrc = new Color(base.getRGB(x, y));
+	int redValueFilter = cFilter.getRed();
+	int greenValueFilter = cFilter.getGreen();
+	int blueValueFilter = cFilter.getBlue();
+        
+        int redValueSrc = cSrc.getRed();
+	int greenValueSrc = cSrc.getGreen();
+	int blueValueSrc = cSrc.getBlue();
+       
+        int redValueFinal = colordodge(redValueFilter, redValueSrc);
+        int greenValueFinal = colordodge(greenValueFilter, greenValueSrc);
+        int blueValueFinal = colordodge(blueValueFilter, blueValueSrc);
+        buffOut.setRGB(x, y, 
+        new Color(redValueFinal, greenValueFinal, blueValueFinal, 255).getRGB());
+    }
+    }
+    this.foto = buffOut;
+}
+public void setFilter(BufferedImage bi/*ImageIcon original*/) /*throws ArrayIndexOutOfBoundsException*/ {
+      
+        try{
+         int sepiaIntensity = 10;
+        BufferedImage sepia;
+         
+        //Detecta si la imagen posee transparencias
+        boolean isTransparent = false;
+        
+        for(int x=0;x<bi.getWidth();x++){
+            for(int y=0;y<bi.getHeight();y++){
+                int pixel = bi.getRGB(x,y);
+                if( (pixel>>24) == 0x00 ) {
+                    isTransparent = true;
+                }
+            }
+        }
+        
+        int sepiaDepth = 20;
+         
+
+        int w = bi.getWidth();
+        int h = bi.getHeight();
+        
+        //Cambiamos los colores de cada pixel si la imagen tiene transparencias ------------------------
+        if(isTransparent){     
+            sepia = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_ARGB); 
+            int[] pixels = new int[w * h * 4];
+            bi.getRaster().getPixels(0, 0, w, h, pixels);
+
+            for (int x = 0; x < w; x++) {
+                for (int y = 0; y < h; y++) {
+
+                    int rgb = bi.getRGB(x, y);
+                    Color color = new Color(rgb, true);
+                    int r = color.getRed();
+                    int g = color.getGreen();
+                    int b = color.getBlue();
+                    int gry = (r + g + b) / 3;
+
+                    r = g = b = gry;
+                    r = r + (sepiaDepth * 2);
+                    g = g + sepiaDepth;
+
+                    if (r > 255) { r = 255; }
+                    if (g > 255) { g = 255; }
+                    if (b > 255) { b = 255; }
+
+                    // Darken blue color to increase sepia effect
+                    b -= sepiaIntensity;
+
+                    // normalize if out of bounds
+                    if (b < 0) { b = 0; }
+                    if (b > 255) {  b = 255; }
+
+                    color = new Color(r, g, b, color.getAlpha());
+                    sepia.setRGB(x, y, color.getRGB());
+
+                }
+            }
+        }
+        
+        //Cambiamos los colores de cada pixel si la imagen no tiene transparencias --------      
+        else{
+            sepia = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB); 
+            int[] pixels = new int[w * h * 3];
+            bi.getRaster().getPixels(0, 0, w, h, pixels);
+
+            for (int x = 0; x < bi.getWidth(); x++) {
+                for (int y = 0; y < bi.getHeight(); y++) {
+
+                    int rgb = bi.getRGB(x, y);
+                    Color color = new Color(rgb, true);
+                    int r = color.getRed();
+                    int g = color.getGreen();
+                    int b = color.getBlue();
+                    int gry = (r + g + b) / 3;
+
+                    r = g = b = gry;
+                    r = r + (sepiaDepth * 2);
+                    g = g + sepiaDepth;
+
+                    if (r > 255) { r = 255; }
+                    if (g > 255) { g = 255; }
+                    if (b > 255) { b = 255; }
+
+                    // Darken blue color to increase sepia effect
+                    b -= sepiaIntensity;
+
+                    // normalize if out of bounds
+                    if (b < 0) { b = 0; }
+                    if (b > 255) {  b = 255; }
+
+                    color = new Color(r, g, b, color.getAlpha());
+                    sepia.setRGB(x, y, color.getRGB());
+
+                }
+            }
+        }     
+    
+//    raster.setPixels(0, 0, w, h, pixels);
+    this.foto = sepia;
+    //return new ImageIcon(sepia); 
+ 
+    } catch(ArrayIndexOutOfBoundsException e){
+           //return original;
+    }
+     
+}
+//public BufferedImage filtrar(BufferedImage bi, int tipo){
+public void filtrar(BufferedImage bi, int tipo){
+		BufferedImage biDestino = 
+			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration()
+			   .createCompatibleImage(bi.getWidth(), bi.getHeight(), Transparency.OPAQUE); 
+		int [][] mat = enreda(bi.getWidth(), bi.getHeight());
+		int [] equis = getX(bi.getWidth(), bi.getHeight());
+		int [] ye = getY(bi.getWidth(), bi.getHeight());
+		for (int y=0, r=0; y < bi.getHeight();y++){
+			for (int x=0; x < bi.getWidth();x++, r++){
+				if(tipo==0) {
+					Color c1=new Color(bi.getRGB(x, y));
+					biDestino.setRGB(equis[r], ye[r], c1.getRGB());
+				} else if(tipo==1) {
+					Color c1=new Color(bi.getRGB(equis[r], ye[r]));
+					biDestino.setRGB(x, y, c1.getRGB());
+				}
+			}
+		}
+		this.foto = biDestino;
+	}
+	public int[] getX(int x, int y) {
+		int [][] espiral = new int[x][y];
+		int [] eX = new int[y*x];
+		int ix=0, iy=0, dy=1, dx=0, r=0;
+		for(int i=0; i<x; i++)
+			for(int j=0; j<y; j++)
+				espiral[i][j]=-1;
+		eX[r] = ix;
+		espiral[ix][iy]=r++;
+		while(r<(x*y)) {
+			if(dy==1) {
+				if(iy+dy>=y) {
+					dy=0;
+					dx=1;
+				} else {
+					if(espiral[ix][iy+dy]==-1) {
+						iy+=dy;
+						eX[r] = ix;
+						espiral[ix][iy]=r++;
+					} else {
+						dy=0;
+						dx=1;
+					}
+				}
+			} else if(dy==-1) {
+				if(iy+dy<0) {
+					dy=0;
+					dx=-1;
+				} else {
+					if(espiral[ix][iy+dy]==-1) {
+						iy+=dy;
+						eX[r] = ix;
+						espiral[ix][iy]=r++;
+					} else {
+						dy=0;
+						dx=-1;
+					}
+				}
+			} else if(dx==1) {
+				if(ix+dx>=x) {
+					dx=0;
+					dy=-1;
+				} else {
+					if(espiral[ix+dx][iy]==-1) {
+						ix+=dx;
+						eX[r] = ix;
+						espiral[ix][iy]=r++;
+					} else {
+						dx=0;
+						dy=-1;
+					}
+				}
+			} else if(dx==-1) {
+				if(ix+dx<0) {
+					dx=0;
+					dy=1;
+				} else {
+					if(espiral[ix+dx][iy]==-1) {
+						ix+=dx;
+						eX[r] = ix;
+						espiral[ix][iy]=r++;
+					} else {
+						dx=0;
+						dy=1;
+					}
+				}
+			}
+		}
+		return eX;
+	}
+	public int[] getY(int x, int y) {
+		int [][] espiral = new int[x][y];
+		int [] eY = new int[y*x];
+		int ix=0, iy=0, dy=1, dx=0, r=0;
+		for(int i=0; i<x; i++)
+			for(int j=0; j<y; j++)
+				espiral[i][j]=-1;
+		eY[r]=iy;
+		espiral[ix][iy]=r++;
+		while(r<(x*y)) {
+			if(dy==1) {
+				if(iy+dy>=y) {
+					dy=0;
+					dx=1;
+				} else {
+					if(espiral[ix][iy+dy]==-1) {
+						iy+=dy;
+						eY[r]=iy;
+						espiral[ix][iy]=r++;
+					} else {
+						dy=0;
+						dx=1;
+					}
+				}
+			} else if(dy==-1) {
+				if(iy+dy<0) {
+					dy=0;
+					dx=-1;
+				} else {
+					if(espiral[ix][iy+dy]==-1) {
+						iy+=dy;
+						eY[r]=iy;
+						espiral[ix][iy]=r++;
+					} else {
+						dy=0;
+						dx=-1;
+					}
+				}
+			} else if(dx==1) {
+				if(ix+dx>=x) {
+					dx=0;
+					dy=-1;
+				} else {
+					if(espiral[ix+dx][iy]==-1) {
+						ix+=dx;
+						eY[r]=iy;
+						espiral[ix][iy]=r++;
+					} else {
+						dx=0;
+						dy=-1;
+					}
+				}
+			} else if(dx==-1) {
+				if(ix+dx<0) {
+					dx=0;
+					dy=1;
+				} else {
+					if(espiral[ix+dx][iy]==-1) {
+						ix+=dx;
+						eY[r]=iy;
+						espiral[ix][iy]=r++;
+					} else {
+						dx=0;
+						dy=1;
+					}
+				}
+			}
+		}
+		return eY;
+	}
+	public int[][] enreda(int x, int y) {
+		int [][] espiral = new int[x][y];
+		int ix=0, iy=0, dy=1, dx=0, r=0;
+		for(int i=0; i<x; i++)
+			for(int j=0; j<y; j++)
+				espiral[i][j]=-1;
+		espiral[ix][iy]=r++;
+		while(r<(x*y)) {
+			if(dy==1) {
+				if(iy+dy>=y) {
+					dy=0;
+					dx=1;
+				} else {
+					if(espiral[ix][iy+dy]==-1) {
+						iy+=dy;
+						espiral[ix][iy]=r++;
+					} else {
+						dy=0;
+						dx=1;
+					}
+				}
+			} else if(dy==-1) {
+				if(iy+dy<0) {
+					dy=0;
+					dx=-1;
+				} else {
+					if(espiral[ix][iy+dy]==-1) {
+						iy+=dy;
+						espiral[ix][iy]=r++;
+					} else {
+						dy=0;
+						dx=-1;
+					}
+				}
+			} else if(dx==1) {
+				if(ix+dx>=x) {
+					dx=0;
+					dy=-1;
+				} else {
+					if(espiral[ix+dx][iy]==-1) {
+						ix+=dx;
+						espiral[ix][iy]=r++;
+					} else {
+						dx=0;
+						dy=-1;
+					}
+				}
+			} else if(dx==-1) {
+				if(ix+dx<0) {
+					dx=0;
+					dy=1;
+				} else {
+					if(espiral[ix+dx][iy]==-1) {
+						ix+=dx;
+						espiral[ix][iy]=r++;
+					} else {
+						dx=0;
+						dy=1;
+					}
+				}
+			}
+		}
+		return espiral;
+	}
+public void posterizer(BufferedImage  image, int num) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+    BufferedImage bufferedImage = new BufferedImage(width, height,
+    BufferedImage.TYPE_INT_RGB);
+    for (int j = 0; j < width; j++) {
+    	for (int k = 0; k < height; k++) {
+    		int pixel = image.getRGB(j, k);
+    		bufferedImage.setRGB(j, k, posterize(pixel, num));
+    	}
+    }
+    this.foto = bufferedImage;
+}
+private static int posterize(int x, int factor) {
+    int modulo = 10;
+    while (x % (modulo * 10) != x) {
+    modulo *= 10;
+    }
+    return modulo * factor * -1;
+    }
+private int colordodge(int in1, int in2) {
+    float image = (float)in2;
+    float mask = (float)in1;
+    return ((int) ((image == 255) ? image:Math.min(255, (((long)mask << 8 ) / (255 - image)))));
+
+}
+    public BufferedImage getFoto(){  return foto; }  
+}
+

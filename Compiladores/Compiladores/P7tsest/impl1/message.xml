@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliMessageLog>
+    <Task name="MapVHDLSimFile">
+        <Message>
+            <ID>35400250</ID>
+            <Severity>Info</Severity>
+            <Dynamic>0</Dynamic>
+        </Message>
+    </Task>
+    <Task name="Map">
+        <Message>
+            <ID>1166064</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>input</Dynamic>
+            <Dynamic>clk0</Dynamic>
+        </Message>
+        <Message>
+            <ID>51001046</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>clk0</Dynamic>
+        </Message>
+    </Task>
+    <Task name="Lattice_Synthesis">
+        <Message>
+            <ID>35002000</ID>
+            <Severity>Info</Severity>
+        </Message>
+        <Message>
+            <ID>35001781</ID>
+            <Severity>Info</Severity>
+        </Message>
+        <Message>
+            <ID>35001200</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>topContador</Dynamic>
+        </Message>
+        <Message>
+            <ID>35921504</ID>
+            <Severity>Info</Severity>
+            <Dynamic></Dynamic>
+            <Dynamic>C:/Users/osk4r_000/Documents/ESCOM/JASZ/Arqui de Computadoras/Diamond/lcd00/P7tsest/impl1</Dynamic>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd(7): </Dynamic>
+            <Dynamic>contador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd</Navigation>
+            <Navigation>7</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd(15): </Dynamic>
+            <Dynamic>a_deca</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd</Navigation>
+            <Navigation>15</Navigation>
+        </Message>
+        <Message>
+            <ID>35921240</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd(6): </Dynamic>
+            <Dynamic>components</Dynamic>
+            <Dynamic>lattice</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd</Navigation>
+            <Navigation>6</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd(10): </Dynamic>
+            <Dynamic>div00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd</Navigation>
+            <Navigation>10</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd(17): </Dynamic>
+            <Dynamic>div0</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd</Navigation>
+            <Navigation>17</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd(7): </Dynamic>
+            <Dynamic>osc00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd</Navigation>
+            <Navigation>7</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd(12): </Dynamic>
+            <Dynamic>osc0</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd</Navigation>
+            <Navigation>12</Navigation>
+        </Message>
+        <Message>
+            <ID>35921014</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagecontador.vhd(7): </Dynamic>
+            <Dynamic>packagecontador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagecontador.vhd</Navigation>
+            <Navigation>7</Navigation>
+        </Message>
+        <Message>
+            <ID>35921240</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd(4): </Dynamic>
+            <Dynamic>components</Dynamic>
+            <Dynamic>lattice</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd</Navigation>
+            <Navigation>4</Navigation>
+        </Message>
+        <Message>
+            <ID>35921014</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd(8): </Dynamic>
+            <Dynamic>packagediv00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd</Navigation>
+            <Navigation>8</Navigation>
+        </Message>
+        <Message>
+            <ID>35921240</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(4): </Dynamic>
+            <Dynamic>components</Dynamic>
+            <Dynamic>lattice</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>4</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(9): </Dynamic>
+            <Dynamic>topcontador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>9</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(21): </Dynamic>
+            <Dynamic>a_topcontador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>21</Navigation>
+        </Message>
+        <Message>
+            <ID>35921178</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(21): </Dynamic>
+            <Dynamic>a_topcontador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>21</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd(8): </Dynamic>
+            <Dynamic>topdiv00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd</Navigation>
+            <Navigation>8</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd(16): </Dynamic>
+            <Dynamic>topdiv0</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd</Navigation>
+            <Navigation>16</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd(7): </Dynamic>
+            <Dynamic>contador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd</Navigation>
+            <Navigation>7</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd(15): </Dynamic>
+            <Dynamic>a_deca</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/cont.vhd</Navigation>
+            <Navigation>15</Navigation>
+        </Message>
+        <Message>
+            <ID>35921240</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd(6): </Dynamic>
+            <Dynamic>components</Dynamic>
+            <Dynamic>lattice</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd</Navigation>
+            <Navigation>6</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd(10): </Dynamic>
+            <Dynamic>div00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd</Navigation>
+            <Navigation>10</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd(17): </Dynamic>
+            <Dynamic>div0</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/div00.vhd</Navigation>
+            <Navigation>17</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd(7): </Dynamic>
+            <Dynamic>osc00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd</Navigation>
+            <Navigation>7</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd(12): </Dynamic>
+            <Dynamic>osc0</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/osc00.vhd</Navigation>
+            <Navigation>12</Navigation>
+        </Message>
+        <Message>
+            <ID>35921014</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagecontador.vhd(7): </Dynamic>
+            <Dynamic>packagecontador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagecontador.vhd</Navigation>
+            <Navigation>7</Navigation>
+        </Message>
+        <Message>
+            <ID>35921240</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd(4): </Dynamic>
+            <Dynamic>components</Dynamic>
+            <Dynamic>lattice</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd</Navigation>
+            <Navigation>4</Navigation>
+        </Message>
+        <Message>
+            <ID>35921014</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd(8): </Dynamic>
+            <Dynamic>packagediv00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/packagediv00.vhd</Navigation>
+            <Navigation>8</Navigation>
+        </Message>
+        <Message>
+            <ID>35921240</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(4): </Dynamic>
+            <Dynamic>components</Dynamic>
+            <Dynamic>lattice</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>4</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(9): </Dynamic>
+            <Dynamic>topcontador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>9</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(21): </Dynamic>
+            <Dynamic>a_topcontador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>21</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd(8): </Dynamic>
+            <Dynamic>topdiv00</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd</Navigation>
+            <Navigation>8</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd(16): </Dynamic>
+            <Dynamic>topdiv0</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topdiv00.vhd</Navigation>
+            <Navigation>16</Navigation>
+        </Message>
+        <Message>
+            <ID>35921205</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd(19): </Dynamic>
+            <Dynamic>topContador</Dynamic>
+            <Dynamic>a_topContador</Dynamic>
+            <Navigation>c:/users/osk4r_000/documents/escom/jasz/arqui de computadoras/diamond/lcd00/p7tsest/impl1/source/topcont0.vhd</Navigation>
+            <Navigation>19</Navigation>
+        </Message>
+        <Message>
+            <ID>35001611</ID>
+            <Severity>Warning</Severity>
+        </Message>
+        <Message>
+            <ID>1166052</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>logical</Dynamic>
+            <Dynamic>clk0</Dynamic>
+            <Navigation>clk0</Navigation>
+        </Message>
+        <Message>
+            <ID>1166064</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>input</Dynamic>
+            <Dynamic>clk0</Dynamic>
+        </Message>
+        <Message>
+            <ID>1163101</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>2</Dynamic>
+        </Message>
+    </Task>
+    <Task name="PAR">
+        <Message>
+            <ID>66011008</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>
+   Signal=oscdiv0_c loads=5 clock_loads=3</Dynamic>
+        </Message>
+        <Message>
+            <ID>66011008</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>
+   Signal=oscdiv0_c loads=5 clock_loads=3</Dynamic>
+        </Message>
+    </Task>
+</BaliMessageLog>

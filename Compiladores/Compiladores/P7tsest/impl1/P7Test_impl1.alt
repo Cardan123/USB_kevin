@@ -1,0 +1,25 @@
+NOTE Copyright (C), 1992-2010, Lattice Semiconductor Corporation *
+NOTE All Rights Reserved *
+NOTE DATE CREATED: Fri Oct 25 00:24:23 2019 *
+NOTE DESIGN NAME: topContador *
+NOTE DEVICE NAME: LCMXO2-7000HE-4TQFP144 *
+NOTE PIN ASSIGNMENTS *
+NOTE PINS oscraw0 : 61 : out *
+NOTE PINS oscdiv0 : 60 : out *
+NOTE PINS s0[3] : 54 : out *
+NOTE PINS s0[2] : 56 : out *
+NOTE PINS s0[1] : 57 : out *
+NOTE PINS s0[0] : 59 : out *
+NOTE PINS indiv0[3] : 14 : in *
+NOTE PINS indiv0[2] : 13 : in *
+NOTE PINS indiv0[1] : 12 : in *
+NOTE PINS indiv0[0] : 11 : in *
+NOTE PINS c0[2] : 3 : in *
+NOTE PINS c0[1] : 2 : in *
+NOTE PINS c0[0] : 1 : in *
+NOTE PINS e0[3] : 10 : in *
+NOTE PINS e0[2] : 9 : in *
+NOTE PINS e0[1] : 6 : in *
+NOTE PINS e0[0] : 5 : in *
+NOTE CONFIGURATION MODE: NONE *
+NOTE COMPRESSION: on *

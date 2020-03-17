@@ -1,0 +1,314 @@
+//Poligonos n=3 a n=9
+
+procedure poligono(){
+for (i=0;i<$1;i=i+1){
+COLOR[240*i,50*i,201*i];
+    AVANZA[200];
+    GIRA[$2];
+}
+}
+AVANZA[-100];
+GIRA[90];
+AVANZA[-270];
+GIRA[-90];
+poligono(9,40);
+poligono(8,45);
+poligono(7,51);
+poligono(6,60);
+poligono(5,72);
+poligono(4,90);
+poligono(3,120);
+
+//Regla
+
+AVANZA[-200];
+for(i=0;i<40;i=i+1){
+COLOR[i*13, i*26, i*51];
+AVANZA[10];
+GIRA[90];
+AVANZA[5];
+GIRA[180];
+AVANZA[10];
+GIRA[180];
+AVANZA[5];
+GIRA[-90];
+}       
+//Árbol
+
+COLOR[87,166,057];
+GIRA[90];
+AVANZA[-100];
+GIRA[180+90];
+procedure brocoli(){
+if($1>4){
+AVANZA[$1];
+GIRA[20];
+COLOR[87,166,057];
+brocoli($1-4);
+GIRA[320];
+COLOR[87,166,057];
+brocoli($1-4);
+GIRA[20];
+COLOR[87,166,057];
+AVANZA[(-1)*($1)];
+}
+}
+GIRA[90];
+COLOR[87,166,057];
+GIRA[180];
+AVANZA[100];
+GIRA[180];
+COLOR[87,166,057];
+brocoli(50);
+
+//ESTRELLA DE DAVID
+
+procedure poligono(){
+for (i=0;i<$1;i=i+1){
+COLOR[140+i,150+i,201+i];
+    AVANZA[300];
+    GIRA[$2];
+}
+}
+procedure gira(){
+AVANZA[300];
+GIRA[90];
+AVANZA[170];
+GIRA[90];
+}
+AVANZA[-150];
+gira();
+poligono(3,120);
+gira();
+poligono(3,120);
+
+//ESTRELLA PENTAGRAMA
+
+for (i=0;i<40;i=i+1){
+COLOR[i+240,i+350,i+400];
+    AVANZA[i*10];
+    GIRA[144];
+}
+
+//CICLOS-ESTRELLAS
+
+AVANZA[-150];
+for(i=0;i<130;i=i+1){
+   COLOR[i+13, i+26, i+51];
+   AVANZA[i+300];
+   GIRA[150];
+}
+//Estrella poligonal (espirografo)
+
+AVANZA[-150];
+for(i=0;i<230;i=i+1){
+   COLOR[i+930, i+260, i+510];
+   AVANZA[i+300];
+   GIRA[160];
+}
+
+//Espiral Cuadrada
+
+for(i=0;i<80;i=i+1){
+COLOR[i*13, i*26, i*51];
+AVANZA[i*5];
+GIRA[90];
+}
+
+
+//CICLOS-ESPIRAL
+
+for(i=0;i<200;i=i+1){
+   AVANZA[i*4];
+   GIRA[145];
+COLOR[i*200,i*300,i*400];
+}
+
+//CURVA KOTCH
+
+procedure snowflake(){
+snow2();
+	GIRA[60];
+snow2();
+	GIRA[-120];
+snow2();
+	GIRA[60];
+snow2();
+}
+procedure snow2(){
+snow3();
+	GIRA[60];
+snow3();
+	GIRA[-120];
+snow3();
+	GIRA[60];
+snow3();
+}
+procedure snow3(){
+snow4();
+	GIRA[60];
+snow4();
+	GIRA[-120];
+snow4();
+	GIRA[60];
+snow4();
+}
+procedure snow4(){
+COLOR[120,227,253];
+AVANZA[5];
+	GIRA[60];
+AVANZA[5];
+	GIRA[-120];
+AVANZA[5];
+	GIRA[60];
+AVANZA[5];
+}
+AVANZA[-100];
+GIRA[90];
+AVANZA[-200];
+snowflake();
+GIRA[-120];
+snowflake();
+GIRA[-120];
+snowflake();
+
+//HILBERT CURVE
+
+procedure hilbert(){
+	for(i=0; i<$1; i=i+1){
+	COLOR[i*13, i*26, i*51];
+	GIRA[$2];
+	hilbert($1-1,-$2);
+	AVANZA[10];
+	GIRA[-$2];
+	hilbert($1-1,$2);
+	AVANZA[10];
+	hilbert($1-1,$2);
+	GIRA[-$2];
+	AVANZA[10];
+	hilbert($1-1,-$2);
+	GIRA[$2];
+	}
+}
+AVANZA[-170];
+GIRA[-90];
+AVANZA[130];
+GIRA[90];
+hilbert(5,90);
+
+//PROCEDIMIENTOS
+
+procedure cuadro(){
+   for(j=0;j<4;j=j+1){
+      AVANZA[100];
+      GIRA[90];
+COLOR[i*100,i*30,i*40];
+   }
+}
+procedure circulo(){
+   for(j=0;j<4;j=j+1){
+      AVANZA[100];
+      GIRA[90];
+
+   }
+}
+for(i=0; i< 360; i=i+1){
+cuadro();
+circulo();
+
+GIRA[1];
+
+}
+
+// PROCEDIMIENTOS ANIDADOS FLOR DE CIRCULOS
+
+procedure circulo(){
+   for(aux=0; aux<360; aux=aux+1){
+      AVANZA[2];
+      GIRA[1];
+   }
+}
+procedure flor(){
+   for(i=0;i<8;i=i+1){
+      circulo((i+1)*30, (i+1)*32, (i+1)*60);
+      GIRA[45];
+COLOR[i*200,i*300,i*400];
+
+   }
+}
+flor();
+
+// GRECAAAAAA
+
+procedure greca(){
+for(i=0;i<20;i=i+1){
+COLOR[i*150,i*100,i*10];
+GIRA[90];
+AVANZA[20];
+GIRA[-90];
+AVANZA[20];
+GIRA[-90];
+AVANZA[10];
+GIRA[-90];
+AVANZA[10];
+GIRA[90];
+AVANZA[10];
+GIRA[90];
+AVANZA[20];
+}
+}
+for(i=0;i<1;i=i+1){
+AVANZA[-280];
+greca();
+GIRA[-90];
+AVANZA[10];
+GIRA[-90];
+greca();
+GIRA[-180];
+AVANZA[10];
+GIRA[-180];
+AVANZA[10];
+GIRA[-90];
+}
+//REGLA RECURSIVA
+procedure regla(){
+                        if($2>0)
+                        {
+                        COLOR[125, 120, 150];
+                        	regla($1*0.5, $2-1);
+                        	AVANZA[$1*0.5];
+                        	GIRA[90];
+                        	AVANZA[$2*40];
+                        	AVANZA[-$2*40];
+                        	GIRA[-90];
+                        	regla($1*0.5, $2-1);
+                        	AVANZA[-$1*0.5];
+                        }
+                        	
+                        }
+                        AVANZA[-250];
+                        AVANZA[512];
+                        AVANZA[-512];
+                        regla(512, 6);
+//KOCH RECURSIVO
+procedure koch(){
+COLOR[];
+if($1==0){
+AVANZA[$2];
+}
+else{
+koch($1 - 1, $2 *.3);
+GIRA[60];
+koch($1 - 1, $2 *.3);
+GIRA[-120];
+koch($1 - 1, $2 *.3);
+GIRA[60];
+koch($1 - 1, $2 *.3);
+}
+return 0;
+}
+koch(4,500);
+GIRA[-120];
+koch(4,500);
+GIRA[-120];
+koch(4,500);

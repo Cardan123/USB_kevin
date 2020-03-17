@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliProject version="3.2" title="P7Test" device="LCMXO2-7000HE-4TG144C" default_implementation="impl1">
+    <Options/>
+    <Implementation title="impl1" dir="impl1" description="impl1" synthesis="lse" default_strategy="Strategy1">
+        <Options/>
+        <Source name="impl1/source/cont.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="impl1/source/div00.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="impl1/source/osc00.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="impl1/source/packageContador.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="impl1/source/packagediv00.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="impl1/source/topCont0.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="impl1/source/topdiv00.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="impl1/impl1.xcf" type="Programming Project File" type_short="Programming">
+            <Options/>
+        </Source>
+        <Source name="P7Test.lpf" type="Logic Preference" type_short="LPF">
+            <Options/>
+        </Source>
+    </Implementation>
+    <Strategy name="Strategy1" file="P7Test1.sty"/>
+</BaliProject>

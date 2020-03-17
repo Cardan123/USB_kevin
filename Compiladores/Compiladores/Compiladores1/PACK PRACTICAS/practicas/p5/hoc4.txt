@@ -1,0 +1,20 @@
+a=+2+2j
+b=a.(+9+0j)
+
+if(a==+1+1j){a=b print a}
+while(a<b){a=a^(+1+0j) print a}
+
+b=a*a*a*a*a+a*a+a*a
+
+(+1+1j)^9
+en ciclos
+a -> entrada
+b -> potencia
+c -> contador
+r -> resultado
+
+a=+1+1j
+c=+0+0j
+r=+1+0j
+b=+9+9j
+while(c<b){c=c+(+1+0j) r=(r*a) print r}

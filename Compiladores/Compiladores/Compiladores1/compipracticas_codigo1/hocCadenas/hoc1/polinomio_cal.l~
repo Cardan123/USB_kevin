@@ -1,0 +1,49 @@
+%option noyywrap
+%{
+#include <stdio.h>
+#include <stdlib.h>
+#include "hoc.h"
+#include "y.tab.h"
+void RmWs(char* str);
+extern YYSTYPE yylval;
+%}
+op [-+*/]
+ws [ \t]+ 
+digits [0-9]
+number (0|[1-9]+{digits}*)
+%%
+{number} {
+   int n=0;
+   //printf("yytext=(%s)\n", yytext+1);
+   sscanf(yytext+1,"%d", &n);
+   //printf("n=(%d)\n", n);
+   if (n == 0)
+      execerror("strange $...", (char *)0);     
+   yylval.narg = n; 
+   //puts("yylex ARG");
+   return ARG;
+}
+{op} | 
+\r |
+\n { 
+     //puts("enter");
+     return *yytext; }
+{ws}  { }
+. {
+   //printf("regresando =(%c, %d)\n", yytext[0], yytext[0]);
+   return *yytext;
+}
+%%
+void RmWs(char* str) {
+  int i = 0, j = 0;
+  char *temp=strdup(str);
+  while (temp[i] != '\0') {
+    while (temp[i] == ' ')
+      i++;
+    str[j] = temp[i];
+    i++;
+    j++;
+  }
+ str[j] = '\0';
+ free(temp);
+}

@@ -1,0 +1,18 @@
+Results of NGD DRC are available in topContador_drc.log.
+Loading NGL library 'C:/lscc/diamond/3.9_x64/ispfpga/xo2c00a/data/xo2alib.ngl'...
+Loading NGL library 'C:/lscc/diamond/3.9_x64/ispfpga/xo2c00/data/xo2clib.ngl'...
+Loading NGL library 'C:/lscc/diamond/3.9_x64/ispfpga/mg5g00/data/mg5glib.ngl'...
+Loading NGL library 'C:/lscc/diamond/3.9_x64/ispfpga/or5g00/data/orc5glib.ngl'...
+
+
+Running DRC...
+
+WARNING - synthesis: logical net 'clk0' has no load.
+WARNING - synthesis: input pad net 'clk0' has no legal load.
+WARNING - synthesis: DRC complete with 2 warnings.
+
+Design Results:
+    110 blocks expanded
+completed the first expansion
+All blocks are expanded and NGD expansion is successful.
+Writing NGD file P7Test_impl1.ngd.
